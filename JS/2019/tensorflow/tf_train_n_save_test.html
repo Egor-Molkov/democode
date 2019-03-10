@@ -1,0 +1,110 @@
+
+<!doctype html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="tf.js"></script>
+
+</head>
+
+<style>
+  .setting {
+    padding: 6px;
+  }
+
+  #trainModel {
+    margin-top: 12px;
+  }
+
+  .setting-label {
+    display: inline-block;
+    width: 12em;
+  }
+
+  .answer-correct {
+    color: green;
+  }
+
+  .answer-wrong {
+    color: red;
+  }
+</style>
+
+<body>
+  <div class='title'>
+    <section class='title-area'>
+      <h1>TensorFlow.js: Addition RNN</h1>
+      <p class='subtitle'>Train and Save a model to learn addition by example</p>
+    </section>
+
+    <div>
+
+      <div class="controls with-rows">
+        <div class="settings">
+          <div class="setting">
+            <span class="setting-label">Digits:</span>
+            <input id="digits" value="2"></input>
+          </div>
+          <div class="setting">
+            <span class="setting-label">Training Size:</span>
+            <input id="trainingSize" value="5000"></input>
+          </div>
+          <div class="setting">
+            <span class="setting-label">RNN Type:</span>
+            <select id="rnnType">
+              <option value="SimpleRNN">SimpleRNN</option>
+              <option value="GRU">GRU</option>
+              <option value="LSTM">LSTM</option>
+            </select>
+          </div>
+          <div class="setting">
+            <span class="setting-label">RNN Layers:</span>
+            <input id="rnnLayers" value="1"></input>
+          </div>
+          <div class="setting">
+            <span class="setting-label">RNN Hidden Layer Size:</span>
+            <input id="rnnLayerSize" value="128"></input>
+          </div>
+          <div class="setting">
+            <span class="setting-label">Batch Size:</span>
+            <input id="batchSize" value="128"></input>
+          </div>
+          <div class="setting">
+            <span class="setting-label">Train Iterations:</span>
+            <input id="trainIterations" value="100"></input>
+          </div>
+          <div class="setting">
+            <span class="setting-label"># of test examples:</span>
+            <input id="numTestExamples" value="20"></input>
+          </div>
+        </div>
+
+        <div>
+          <span>
+            <button class="btn-primary" id="trainModel">Train Model</button>
+          </span>
+        </div>
+      </div>
+
+
+      <section>
+        <p class='section-head'>Training Progress</p>
+        <p id="trainStatus"></p>
+        <div class='with-cols'>
+          <div id="lossChart"></div>
+          <div id="accuracyChart"></div>
+         </div>
+      </section>
+
+      <section>
+        <p class='section-head'>Test Examples</p>
+        <p id="testExamples"></p>
+      </section>
+
+    </div>
+  </div>
+
+</body>
+
+<script src="tf_train_n_save_test.js"></script>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Test</title>
+	<meta name="author" content="Egor" >
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="content-style-type" content="text/css">
+	<link href="reset.css" rel="stylesheet" type="text/css">
+	<link href="style.css" rel="stylesheet" type="text/css">
+	<script src="jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="test.json"></script>
+</head>
+<!-- Просто меню для тестов -->
+<body>
+	<article class="frame">
+	</article>	
+	
+	<nav>
+		<div class="menu"></div>
+		<div class="foo">⮝</div>
+	</nav>
+
+<script>
+//title=\""+stringInfo+"\"
+var tst = JSON.parse (jsonString);
+var i = 0, id = 0, stringName = "", speed = 300, flag = true;
+
+while ( i < tst.contents.length ) {
+	stringName = tst.contents[ i ].name;
+	$( ".menu" ).append( `
+		<svg data-id = "${ i }" >
+			<path d = "M 40,60 45,60 315,60 320,60" />
+			<text x = "45" y = "45" >${ stringName }
+			</text>
+		</svg>
+	` );
+	i++;	
+};
+
+$( ".foo" ).click( function ( ) {
+	if ( flag ) {
+		$( "nav div svg" ).slideDown( speed );
+		setTimeout( function( ) { $( ".foo" ).empty( ).append( "⮟" ); }, speed+100 );
+		flag = false;
+	} else {
+		$( "nav div svg" ).slideUp( speed );
+		setTimeout( function( ) { $( ".foo" ).empty( ).append( "⮝" ); }, speed+100 );
+		flag = true;
+	};
+});
+
+$( 'nav' ).mouseleave( function ( ) {
+	$( "nav div svg" ).slideUp( speed );
+	setTimeout( function ( ) { $( ".foo" ).empty( ).append( "⮝" ); }, speed+100 );
+	flag = true;
+});
+
+$( "svg" ).click( function ( ) {
+	id = $( this ).attr( "data-id" );
+	id++;
+	$( ".frame" ).empty( ).append( `
+		<iframe src="${ id }/index.html">
+		</iframe>
+	` );
+});
+</script>
+</body>
+</html>

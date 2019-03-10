@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Test</title>
+	<meta name="author" content="Egor" >
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="content-style-type" content="text/css">
+	<link href="reset.css" rel="stylesheet" type="text/css">
+	<link href="style.css" rel="stylesheet" type="text/css">
+	<script src="jquery-3.1.1.min.js"></script>
+</head>
+<!-- Реализуйте функцию isPowerOfThree, которая определяет, является ли переданное число натуральной степенью тройки. -->
+<body>
+	<header class="headers"><h1>Степень тройки</h1></header>
+	<article>
+		<section>
+			<div class="info">
+				Реализуйте функцию isPowerOfThree, которая определяет, является ли переданное число натуральной степенью тройки.
+			</div>
+			<div>
+				<input name="value_pre"  type="text" maxlength="20"  placeholder="Введите число" autofocus="true" pattern="^[0-9]+$">
+				<input name="value_ok" type="button" value="ok">
+			</div>
+		</section>
+		<section>
+			<div class="_out">
+			</div>
+		</section>
+	</article>
+<script>
+var f = "false", x, y, t, i;
+function isSQRThree( y ) {
+	if ( y%3 == 0 ) { i++; return true; };	
+	return false;
+};
+function isPowerOfThree( x ) {
+	i = 0; f = "false";	t = "";
+	x = x^0;
+	if ( x == 1 ) {
+		f = "true";
+		t = "3^" + i;
+		return f, t;
+	} else if ( x > 2 ) {
+		while ( isSQRThree( x ) ) {
+			if ( x == 3 ) {
+				f = "true";
+				t = "3^" + i;
+				return f, t;
+			};
+			x = x / 3;
+		};
+	};
+	return f, t;
+};
+$( '[name = value_ok]' ).click( function ( ) {
+	var reg = new RegExp ( "^[0-9]+$" );
+	x = $( '[name = value_pre]' ).val( );
+	if ( x && reg.test( x ) ) { 
+		$( "div._out" ).empty( );
+		isPowerOfThree( x );
+		$( "div._out" ).append( f + " > " + t );
+	} else { $( "div._out" ).empty( ); }
+});
+</script>
+</body>
+</html>

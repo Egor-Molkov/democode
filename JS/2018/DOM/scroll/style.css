@@ -1,0 +1,58 @@
+
+html { height: 200%; width: 100%; }
+body { display: flex; flex-direction: column; height: 100%; width: 100%; }
+
+header, article, footer, section, aside, div  { display: flex; }
+header, article, footer { flex-wrap: wrap; }
+
+header { height: 150px; } 
+footer { height: 150px; }
+article { height: 100%; }
+section { flex-basis: 80%; }
+aside { flex-basis: 20%; }
+
+body { padding: 0; }
+header, footer { padding: 0; border-radius:3px; }
+article {  padding: 3px 0; }
+aside { padding: 3px 0;}
+
+section, aside {border-radius:3px;}
+
+header { background-color:rgba(250,188,0,0.7); }
+section { background-color:rgba(143,188,143,0); }
+aside { background-color:rgba(143,188,143,0.3); }
+footer { background-color:rgba(0,188,250,0.3); }
+
+h1, h2 { font-weight: 300; text-align: center; width: 100%; font-size: 1.5em; padding: 20px;}
+h1 { font-weight: 500; }
+
+
+.fix { 
+	height: 50px; 
+	width: 80px; 
+	display: block; 
+	position: fixed; 
+	top: 200px; 
+	background:rgba(255,106,106,0.3);
+	border-radius:3px; }
+.fix > p { padding: 16px; }
+
+#keyframes {padding: 0 30px;}
+.el { }
+
+
+[data-aos="an2"] {
+	background:rgba(143,188,143,0.3);
+	transition-property: background;}
+[data-aos="an2"].aos-animate {background:rgba(255,106,106,0.3)}
+[data-aos="an3"] {
+	background:rgba(143,188,143,0.2);
+	transition-property: background;}
+[data-aos="an3"].aos-animate {background:rgba(255,106,106,0.2)}
+
+
+/*Оформление маленьких разрешений*/
+@media all and (max-width: 600px) {
+header, article, footer, section, aside, div {display: block;float: none; height: auto;}
+aside { display:none; }
+}

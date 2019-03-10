@@ -1,0 +1,47 @@
+var jsonString = '{							\
+	"contentCitie": [						\
+		{								\
+		"citieName": "Гатчина",				\
+		"citieCoords": [104,233]				\
+		},								\
+		{								\
+		"citieName": "Санкт-Петербург",		\
+		"citieCoords": [117,227]				\
+		},								\
+		{								\
+		"citieName": "Мурманск",				\
+		"citieCoords": [205,193]				\
+		},								\
+		{								\
+		"citieName": "Москва",				\
+		"citieCoords": [133,287]				\
+		},								\
+		{								\
+		"citieName": "Арсеньев",				\
+		"citieCoords": [743,436]				\
+		}								\
+	],									\
+	"contentZone": [						\
+		{								\
+		"zoneNameDir":"armalit",				\
+		"zoneName": "Армалит",				\
+		"zoneCoords": [144,285,131,228,70,199,59,253,119,320,151,311],	\
+		"ZoneMulti": false,					\
+		"zoneMedia": 9						\
+		},								\
+		{								\
+		"zoneNameDir":["skbk", "burevestnik"],	\
+		"zoneName": "СКБК, Буревестник",		\
+		"zoneCoords": [131,253,109,193,166,172,201,223,186,288,182,283],	\
+		"ZoneMulti": true,					\
+		"zoneMedia": [6, 6]					\
+		},								\
+		{								\
+		"zoneNameDir":"askold",				\
+		"zoneName": "Аскольд",				\
+		"zoneCoords": [707,382,784,406,793,483,717,494,679,442],	\
+		"ZoneMulti": false,					\
+		"zoneMedia": 10					\
+		}								\
+	]									\
+}';

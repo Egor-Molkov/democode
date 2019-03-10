@@ -1,0 +1,26 @@
+html { height: 100%; font-family: Arial; }
+
+body { display: flex; flex-direction: column;
+background: repeating-linear-gradient(to right, NavajoWhite, NavajoWhite 13%, #fff 13%, #fff 87%, SandyBrown 87%, SandyBrown 100%)}
+
+header, article { display: flex; margin: 0 15% 0 15%; }
+
+section { display: flex; flex-grow: 1; font-size: 20px; color: #333; flex-basis: 100%;}
+
+h1 { width: 100%; text-align: center; font-size: 32px; }
+
+header { background: linear-gradient(to bottom right, NavajoWhite 40%, SandyBrown); flex-basis: 40px; }
+
+article {  }
+
+div { border-radius: 5px; text-align: center; box-shadow: 4px 4px 4px rgba(0,0,0,0.3);}
+
+.game_left { order:1; flex-basis: 250px; }
+.game_output_text { order:2; flex-basis: 200px; margin: 20px 0 0; }
+.game_right { order:3; flex-basis: 200px; flex-direction: column; }
+
+.game_info { order:1; flex-basis: 100px; margin: 20px 0 20px 0; background: linear-gradient(to bottom right, NavajoWhite 40%, SandyBrown); }
+.game_play { order:2; flex-basis: 70px; margin: 0 0 20px 0; background: linear-gradient(to bottom right, NavajoWhite 40%, SandyBrown); }
+.game_paused { order:3; flex-basis: 70px; background: linear-gradient(to bottom right, NavajoWhite 40%, SandyBrown ); }
+
+canvas { margin: 20px 0 0 0;}

@@ -1,0 +1,224 @@
+
+<html lang="ru">
+
+<head>
+	<title>Local fonts</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="content-style-type" content="text/css">
+	<link href="css/reset.css" rel="stylesheet" type="text/css">
+	<link href="css/style.css" rel="stylesheet" type="text/css">
+	<script src="js/jquery-3.1.1.min.js"></script>
+</head>
+
+<body>
+	<header><h1>Local fonts</h1></header>
+
+	<article class="settings">
+		<div class="form">
+			<fieldset>
+    				<legend>Заголовок</legend>
+				<div class="span">
+					<p>
+						текст<input name="header_text" type="text" placeholder="Съешь французских булок.">
+					</p>	
+				</div>
+				<div class="span">
+					<p class="span">
+						цвет<input name="header_font_color" type="color" value="#F5F5F5">
+					</p>				
+					<p class="span">
+						фон<input name="header_back_color" type="color" value="#434750">
+					</p>
+				</div>
+				<div class="span">
+					<p>
+						размер<input name="header_font_size" min="16" max="64" step="1" value="24" type="range"><q id="header_font_size">24</q>
+					</p>
+				</div>
+				<div class="span">
+					<p class="span">жир
+						<select id="header_font_weight">
+							<option value="100" style="font-weight: 100;">100</option>
+							<option value="200" style="font-weight: 200;">200</option>
+							<option value="300" style="font-weight: 300;">300</option>
+							<option value="400" selected>normal</option>
+							<option value="500" style="font-weight: 500;">500</option>
+							<option value="600" style="font-weight: 600;">600</option>
+							<option value="700" style="font-weight: 700;">bold</option>
+							<option value="800" style="font-weight: 800;">800</option>
+							<option value="900" style="font-weight: 900;">900</option>
+						</select>стиль
+						<select id="header_font_style">
+							<option value="normal" selected>normal</option>
+							<option value="italic" style="font-style:italic;">italic</option>
+							<option value="oblique" style="font-style:oblique;">oblique</option>
+							<option value="small-caps" style="font-variant:small-caps;">small-caps</option>
+						</select>
+					</p>
+				</div>
+ 			</fieldset>
+			<fieldset>
+    				<legend>Текст</legend>
+				<div class="span">
+					<p>
+						текст<input name="text_text" type="text" placeholder="Съешь французских булок.">
+					</p>	
+				</div>
+				<div class="span">
+					<p class="span">
+						цвет<input name="text_font_color" type="color" value="#434750">
+					</p>				
+					<p class="span">
+						фон<input name="text_back_color" type="color" value="#F5F5F5">
+					</p>
+				</div>
+				<div class="span">
+					<p>
+						размер<input name="text_font_size" min="16" max="64" step="1" value="13" type="range"><q id="text_font_size">13</q>
+					</p>
+				</div>
+				<div class="span">
+					<p class="span">жир
+						<select id="text_font_weight">
+							<option value="100" style="font-weight: 100;">100</option>
+							<option value="200" style="font-weight: 200;">200</option>
+							<option value="300" style="font-weight: 300;">300</option>
+							<option value="400" selected>normal</option>
+							<option value="500" style="font-weight: 500;">500</option>
+							<option value="600" style="font-weight: 600;">600</option>
+							<option value="700" style="font-weight: 700;">bold</option>
+							<option value="800" style="font-weight: 800;">800</option>
+							<option value="900" style="font-weight: 900;">900</option>
+						</select>стиль
+						<select id="text_font_style">
+							<option value="normal" selected>normal</option>
+							<option value="italic" style="font-style:italic;">italic</option>
+							<option value="oblique" style="font-style:oblique;">oblique</option>
+							<option value="small-caps" style="font-variant:small-caps;">small-caps</option>
+						</select>
+					</p>
+				</div>
+			</fieldset>
+			<div class="set">
+				<div>показать варианты для: 
+					<input type="radio" name="linux" value="true" checked><label>win, mac, linux</label>
+					<input type="radio" name="linux" value="false"><label>win, mac</label>
+				</div>
+				<p class="setter">Применить</p>
+			</div>
+		</div>
+	</article>
+
+
+	<article class="auto_content">
+	</article>
+
+	<footer>Local fonts<br>
+			/* шрифты с засечками Ms, Mac, linux*/<br>
+			.class_1 { font-family: Georgia, serif; }<br>
+			.class_2 { font-family: "Times New Roman", Times, serif; }<br>
+			/* рубленные шрифты Ms, Mac, linux*/<br>
+			.class_3 { font-family: Arial, Helvetica, sans-serif; }<br>
+			.class_4 { font-family: "Arial Black", Gadget, sans-serif; }<br>
+			.class_5 { font-family: "Trebuchet MS", Helvetica, sans-serif; }<br>
+			.class_6 { font-family: Verdana, Geneva, sans-serif; }<br>
+			.class_7 { font-family: Impact,Charcoal, sans-serif; }<br>
+			.class_8 { font-family: "Khmer UI", "Khmer OS", sans-serif; } /* MS, Linux */<br>
+			.class_9 { font-family: "Microsoft Sans Serif", "FreeSans", sans-serif; } /* MS, Linux */<br>
+			/* курсивные шрифты Ms, Mac, linux*/<br>
+			.class_10 { font-family: "Comic Sans MS", cursive; }<br>
+			/* моноширинные шрифты Ms, Mac, linux*/<br>
+			.class_11 { font-family: "Courier New", Courier, monospace; }<br>
+			/* декоративные шрифты Ms, Mac, linux*/<br>
+			.class_12 { font-family: Webdings; }<br>
+			/* шрифты с засечками Ms, Mac */<br>
+			.class_13 { font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; }<br>
+			.class_14 { font-family: "MS Serif", "New York", serif; }<br>
+			/* рубленные шрифты Ms, Mac */<br>
+			.class_15 { font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif; }<br>
+			.class_16 { font-family: Tahoma, Geneva, sans-serif; }<br>
+			.class_17 { font-family: "MS Sans Serif", Geneva, sans-serif; }<br>
+			/* декоративные шрифты Ms, Mac*/<br>
+			.class_18 { font-family: Symbol; }<br>
+			.class_19 { font-family: Wingdings, "Zapf Dingbats"; }<br>
+			/* моноширинные шрифты Ms, Mac */<br>
+			.class_20 { font-family: "Lucida Console", Monaco, monospace; }<br>
+	</footer>
+<script>
+var header_text, header_font_color, header_back_color; 
+var header_font_size, header_font_weight, header_font_style;
+var text_text , text_font_color, text_back_color;
+var text_font_size, text_font_weight, text_font_style;
+var linux, class_count_full = 20;
+
+$( '[name = header_font_size]' ).change( function ( ) { 
+	$( '#header_font_size' ).empty( ).append( $( '[name = header_font_size]' ).val( ) );
+});
+
+$( '[name = text_font_size]' ).change( function ( ) { 
+	$( '#text_font_size' ).empty( ).append( $( '[name = text_font_size]' ).val ( ) );
+});
+
+$( '.setter' ).click( function ( ) {
+	header_text = $( '[name = header_text]' ).val( ) || "В глубине марсинских руд..";
+	header_text = header_text.replace(/\`/g, "&#8216");
+	header_text = header_text.replace(/>/g, "&gt"); 
+	header_text = header_text.replace(/</g, "&lt");
+	header_font_color = $( '[name = header_font_color]' ).val( ) || "#F8F2DA";
+	header_back_color =	$( '[name = header_back_color]' ).val( ) || "#484452";
+	header_font_size = $( '[name = header_font_size]' ).val( ) || 24;
+	header_font_weight = $( '#header_font_weight option:selected' ).val( ) || "400";
+	if ( $( '#header_font_style option:selected' ).val( ) == "small-caps" ) {
+		header_font_style = "font-variant:small-caps;"; 
+	} else {
+		header_font_style = "font-style:" + $( '#header_font_style option:selected' ).val( ) + ";";
+	}
+	
+	text_text = $( '[name = text_text]' ).val( ) || `Андроиды, французкие булки печально жуют.. ( 1 2 3 456 7 8 9 0 , ? ! ' ' " " )`;
+	text_text = text_text.replace(/\`/g, "&#8216");
+	text_text = text_text.replace(/>/g, "&gt"); 
+	text_text = text_text.replace(/</g, "&lt");
+	text_font_color = $( '[name = text_font_color]' ).val( ) || "#484452";
+	text_back_color =	$( '[name = text_back_color]' ).val( ) || "#F8F2DA";
+	text_font_size = $( '[name = text_font_size]' ).val( ) || 13;
+	text_font_weight = $( '#text_font_weight option:selected' ).val( ) || "400";
+	if ( $( '#text_font_style option:selected' ).val( ) == "small-caps" ) {
+		text_font_style = "font-variant:small-caps;"; 
+	} else {
+		text_font_style = "font-style:" + $( '#text_font_style option:selected' ).val( ) + ";";
+	}
+	var  class_count;
+	if ( $( '[name = linux]:checked' ).val( ) == "true" ) { 
+		class_count = class_count_full - 8; 
+	} else {
+		class_count = class_count_full;
+	};
+
+	var hfc = `color:${ header_font_color };`;
+	var hbc = `background-color:${ header_back_color };`;
+	var hfz = `font-size:${ header_font_size }px;`;
+	var hfw = `font-weight:${ header_font_weight };`;
+	var hfs = `${ header_font_style }`;
+
+	var tfc = `color:${ text_font_color };`;
+	var tbc = `background-color:${ text_back_color };`;
+	var tfz = `font-size:${ text_font_size }px;`;
+	var tfw = `font-weight:${ text_font_weight };`;
+	var tfs = `${ text_font_style }`;
+		
+	$( '.auto_content' ).empty( );
+
+	for ( i = 1; i < class_count + 1 ; i++ ) {
+		var shablon = `
+			<section class="class_${ i }"><div class="info">${ i }</div>
+				<div class="header" style="${ hfc + hbc + hfz + hfw + hfs }">${ header_text }</div>
+				<div class="footer" style="${ tfc + tbc + tfz + tfw + tfs }">${ text_text }</div>
+			</section>`;
+
+	$( '.auto_content' ).append( shablon );
+	};  
+});
+
+    
+</script>
+</body>

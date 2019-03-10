@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Test</title>
+	<meta name="author" content="Egor" >
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="content-style-type" content="text/css">
+	<link href="reset.css" rel="stylesheet" type="text/css">
+	<link href="style.css" rel="stylesheet" type="text/css">
+	<script src="jquery-3.1.1.min.js"></script>
+</head>
+<!-- Реализуйте функцию reverseInt, которая переворачивает цифры в переданном числе и возвращает новое число. -->
+<body>
+	<header class="headers"><h1>Переворот числа</h1></header>
+	<article>
+		<section>
+			<div class="info">
+				Реализуйте функцию reverseInt, которая переворачивает цифры в переданном числе и возвращает новое число.
+			</div>
+			<div>
+				<input name="value_pre"  type="text" maxlength="20"  placeholder="Введите значение" autofocus="true" pattern="^-?[0-9]+$">
+				<input name="value_ok" type="button" value="ok">
+			</div>
+		</section>
+		<section>
+			<div class="_out">
+			</div>
+		</section>
+	</article>
+<script>
+function reverseInt( x ) {
+	var y = "";
+	if ( x[ 0 ] === "-" ) { y += "-"; x = x.substring( 1, x.length ) }
+	while ( x.length != 0 ) { y += x[ x.length-1 ]; x = x.substring( 0, x.length-1 ) }
+	return y;
+};
+$( '[name = value_ok]' ).click( function ( ) {
+	var x, reg = new RegExp ( "^-?[0-9]+$" );
+	x = $( '[name = value_pre]' ).val( );
+	if ( x && reg.test( x ) ) { 
+		$( "div._out" ).empty( );
+		$( "div._out" ).append( reverseInt( x ) );
+	} else { $( "div._out" ).empty( ); }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Test</title>
+	<meta name="author" content="Egor" >
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="content-style-type" content="text/css">
+	<link href="reset.css" rel="stylesheet" type="text/css">
+	<link href="style.css" rel="stylesheet" type="text/css">
+	<script src="jquery-3.1.1.min.js"></script>
+</head>
+<body>
+<script>
+function Ev( m, n ) {
+	var r = m%n;
+	while ( r != 0 ) { r = m%n; m = n; n = r; };
+	return m;
+};
+
+console.log( Ev( 2166, 6099 ) )
+
+function recEv( m, n ) {
+	var r = m%n; self;
+ 	if ( r != 0 ) { recEv( n, r ); } else { self = n; }
+	return self;
+};
+
+console.log( recEv( 2166, 6099 ) )
+
+</script>
+</body>
+</html>

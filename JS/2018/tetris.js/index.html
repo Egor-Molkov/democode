@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title>Tetris</title>
+
+	<meta name="author" content="Egor" >
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="content-style-type" content="text/css">
+
+	<link href="reset.css" rel="stylesheet" type="text/css">
+	<link href="style.css" rel="stylesheet" type="text/css">
+
+	<script src="easeljs-0.8.2.min.js"></script>
+	<script src="jquery-3.1.1.min.js"></script>
+
+	<script src="tetris.js" ></script>
+<!-- Задача: написать Тетреис, должен создаваться чере new Tetris, иметь: 
+1. глобальную переменную stat ( NONACTIVE, ACTIVE, PAUSED )
+2. методы .start; .setPaused; .getScore; getSpeed
+3. callback CB_gameOver
+4. быть максимально гибким в настройках, и возможности изменения контента фигур -->
+</head>
+
+<body>
+
+	<header class="headers"><h1>Тетрис</h1></header>
+
+	<article>
+
+		<section class="game_left">
+			<canvas id="game_output" width="250" height="500"></canvas>
+		</section>
+
+		<section class="game_output_text">
+		</section>
+
+		<section class="game_right">
+			<div class="game_info"></div>
+			<div class="game_play"><br>Начать игру</div>
+			<div class="game_paused"><br>Пауза</div>
+		</section>
+
+	</article>
+
+	<script>
+
+		var tetris = new Tetris ( );
+		var score, speed;
+		
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////					Управление					////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		$( ".game_play" ).click( function ( ) {
+		 	tetris.start( );
+		});
+		$( ".game_paused" ).click( function ( ) {
+			tetris.setPaused( );
+		});
+		// раз в секунду вернем очки и скорость
+		var timerS = setInterval( function ( ) {
+			score = tetris.getScore ( );
+			speed = tetris.getSpeed ( );
+			$( ".game_info" ).empty( );
+			$( ".game_info" ).append( "<br>Счет: " + score + "<br>Скорость: " + speed );
+		}, 1000 );
+		
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////					Game over					/////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		function CB_gameOver ( ) {
+			clearInterval( timerS )
+			$( ".game_paused" ).hide( 600 );
+			$( ".game_play" ).delay(600).hide( 600 );
+			$( ".game_output_text" ).delay(1200).fadeOut( 600 );
+			$( ".game_left" ).delay(1800).fadeOut( 600 );
+			var timerSS = setTimeout( function ( ) {
+				$( "h1" ).empty( )			
+				$( "h1" ).append( "<h1>Game over</h1>" );
+			}, 3000 );
+			var timerSS = setTimeout( function ( ) {
+				clearTimeout( timerSS );			
+			}, 3100 );
+		};
+
+	</script>
+</body>
+</html>

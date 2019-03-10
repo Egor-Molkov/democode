@@ -1,0 +1,28 @@
+html { height: 100%; font-family: Arial; }
+
+body { display: flex; flex-direction: column;
+background: repeating-linear-gradient(to right, NavajoWhite, NavajoWhite 13%, #fff 13%, #fff 87%, SandyBrown 87%, SandyBrown 100%)}
+
+header, article { display: flex; flex-direction: column; margin: 0 15% 0 15%; }
+
+section { display: flex; font-size: 20px; color: #333; }
+
+h1 { width: 100%; text-align: center; font-size: 32px; }
+
+header { background: linear-gradient(to bottom right, NavajoWhite 40%, SandyBrown); flex-basis: 40px; }
+
+div { width: 100%;margin:0; }
+
+
+input { width:  90%;  margin: 0 0 0 5px; }
+input[type="button"] { margin: 0 0 0 0; vertical-align: top; height: 100% }
+
+textarea { width:  90%; margin: 0 0 0 5px }
+
+textarea {max-height: 200px;max-width: 770px;min-height: 50px;min-width: 325px;white-space: pre}
+
+._top {  margin: 10px 0 0 0;flex-direction: column;}
+._bottom { margin: 10px 0 0 0;text-indent: 20px; flex-direction: column; }
+
+._login {   }
+._text {display: none; }

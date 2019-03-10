@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title>Прост</title>
+
+	<meta name="author" content="Egor" >
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="content-style-type" content="text/css">
+
+	<link href="reset.css" rel="stylesheet" type="text/css">
+	<link href="style.css" rel="stylesheet" type="text/css">
+
+	<script src="jquery-3.1.1.min.js"></script>
+
+
+<!-- -->
+</head>
+
+<body>
+
+	<header class="_header" id="_top"><h1>Проверка свойства css:transform</h1></header>
+	<article>
+		<div id="l">
+			<div id="c" onmousemove="xy(event)">
+				<div id="f" ></div>
+			</div>
+		</div>
+	</article>
+	
+<script>
+var fuX, fuY, fuD, fuZ, pX, fuZZ;
+
+function xy(event){
+	fuX = $( '#c' ).width( ) / 100;
+	fuY = $( '#c' ).height( ) / 100;
+	pX = (event.clientX - $( '#c' ).offset( ).left) /fuX;
+	pY = (event.clientY - $( '#c' ).offset( ).top) /fuY;
+	
+	fuD = - 5 + (event.clientX - $( '#c' ).offset( ).left) /fuX/10;
+	fuDD =  5 - (event.clientY - $( '#c' ).offset( ).top) /fuY/10;
+	
+	if (pX<50) {fuZ = -50 + (event.clientX - $( '#c' ).offset( ).left) /fuX/1}
+	if (pX>50) {fuZ =  50 - (event.clientX - $( '#c' ).offset( ).left) /fuX/1}
+	
+	
+	var val = "transform-origin:"+ pX + "% "+ pY +"%;transform: rotateY("+fuD+"deg) rotateX("+fuDD+"deg) translateZ("+fuZ+"px)";
+	$( '#f' ).attr("style", val);
+
+	//console.log (fuD);//+", "+event.clientY/fuY);
+};
+
+</script>
+</body>
+</html>

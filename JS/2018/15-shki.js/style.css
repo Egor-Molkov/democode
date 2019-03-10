@@ -1,0 +1,55 @@
+/*Разметка*/
+/*Общая структура*/
+html {height: 100%;}
+
+body {height: 100%;display: flex; flex-direction: column;}
+
+header, article, footer  {display: flex;flex: 0 0 auto;}
+
+div, aside, section {display: flex;}
+
+
+
+/*Частная структура заголовка*/
+header {flex-wrap: wrap;}
+.headers {flex-basis: 100%;}
+
+/*Частная структура центрального блока*/
+section {flex-wrap: wrap;order: 1;}
+aside {flex-direction: column;order: 2;flex-basis: 10%;}
+.asiders {flex-basis: 100%;}
+
+/*Частная структура контента*/
+
+.item {flex: 1 1 21%;}
+
+
+
+/*Поля*/
+header, footer {margin: 0 30px 0 30px;}
+article {margin: 15px 15px 0 15px;}
+.headers {margin: 15px 0 0 0;}
+section {margin: 0 30px 0 0;}
+.asiders {margin:15px;}
+.item {margin: 15px;}
+
+/*Оформление заголовков и текста*/
+h1, h2 {font-weight: 300;text-align: center;width: 100%;}
+h1 {font-weight: 400;}
+p {text-align: center;vertical-align: middle;width: 100%;font-size: 70px;color: Sienna;}
+.headers p {color: Moccasin;font-size: 18px;}
+
+/*Частное оформление фигур*/
+.headers {min-height: 50px;background: Sienna;border-radius: 18px;}
+.asiders {background: Moccasin;border-radius: 18px;}
+.item {min-width: 80px;min-height: 80px;background: Khaki;border-radius: 18px;}
+.ins {background: red;}
+
+
+/*Оформление маленьких разрешений
+@media all and (max-width: 1000px) {
+.headers	{min-height: 50px;}
+.asiders	{min-height: 50px;}
+header, article, footer, section, aside, div {display: block;float: none; height: auto;}
+footer	{min-height: 30px;}
+}*/

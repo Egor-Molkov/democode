@@ -1,0 +1,14 @@
+html { height: 100%; width: 100%; }
+body { height: 100%; width: 100%; }
+
+body { display: flex; flex-direction: column; }
+
+header, article { display: flex; margin: 0 128px; padding: 8px 0; }
+
+h1 { width: 100%; text-align: center; font-size: 32px; color: white; }
+
+header { background-image: radial-gradient(at top center, rgba(114, 123, 132, 1), rgba(64, 73, 82, 1)); flex-basis: 40px; }
+
+article { justify-content: center; }
+
+canvas { margin: 20px 0 0 0; }

@@ -1,0 +1,118 @@
+body { display: flex; flex-direction: column; align-items: center; align-content: stretch; justify-content: space-between; }
+header, .content, footer, section, div 
+	{ display: flex; flex-direction: column; align-content: stretch; justify-content: center; }
+
+.empty { flex: 1 1 auto; }
+
+html { width: 100%; height: 100%; }
+body { width: 100%; height: 100%; }
+div { width: 100%; height: 100%; }
+
+
+
+header, article, footer { width: 100%; max-width: 976px; }
+
+header > section { min-height: 160px; }
+	header > .left { min-width: 180px; }
+	header > .center { min-width: 240px; }
+
+	.content > .left { min-width: 286px;  }
+		.content > .left > .bottom { min-height: 130px; }
+		.content > .right > .bottom > div { min-height: 250px; }
+		
+
+.line { min-height: 3px; max-height: 3px; max-width: 960px; }
+
+
+
+header { flex: none; flex-direction: row; }
+	header > section { align-items: center; }
+	header > .right { flex: 1 1 auto;  }
+		header > .right > div { align-items: flex-end; text-align: right; }
+		header > section > div { align-items: center; }
+		
+.content { flex-direction: row; flex: none; }
+	.content > .left { flex-direction: column; justify-content: space-between; align-items: center; }
+	.content > .left > .top {  }
+		.content > .left > .top > div  { flex-direction: column; align-items: flex-start; }
+	.content > .right { flex: 1 1 auto; flex-direction: column; }
+		.content > .right > .top {  flex-direction: column; }
+		.content > .right > .center { flex-direction: row; flex-wrap: wrap; }
+			.content > .right > .center > div { flex-direction: row; flex-wrap: wrap; }
+		.content > .right > .bottom { flex-direction: row; }
+			.content > .right > .bottom > .left { flex: 1 1 50%; }
+			.content > .right > .bottom > .right { flex: 1 1 50%; }	
+			.content > .right > .bottom div { justify-content: flex-start; }
+		.content > .right > .center { flex-direction: row; }
+		
+footer { flex: none; flex-direction: row; }
+	footer > section { flex: 1 1 33%; }
+	footer > section > div { flex-direction: row;  justify-content: flex-start; }
+	footer > .right { flex-direction: column; align-items: center; justify-content: space-between;  }
+		footer > .right > section { flex: 1 1 50%; align-items: center; width: 100%; margin: 0; }
+		footer > .right > section > div { align-items: center; }
+
+
+header > section > div { background-color: rgba(25,25,112,0.7); }
+header > .left > div { background-color: rgba(255,255,255,1); }
+.content > .left > .top > div { background-color: rgba(25,25,112,0.7); }
+.content > .right > .top > div { background-color:rgba(250,128,114,0.3); }
+.content > .right > .bottom > section > div { background-color:rgba(250,128,114,0.3); }
+footer > section > div { background-color: rgba(25,25,112,0.7); }
+footer > .right > .top > div { background-color: rgba(25,25,112,0.7); }
+footer > .right > .bottom > div { background-color: rgba(255,255,255,1); }
+.line { background-color: rgba(25,25,112,0.7); }
+
+.paddy { margin: 16px 8px; }
+.content > .right > .center > div > img { margin: 8px; }
+
+body { font: 14px/22px Arial; font-weight: 400; }
+
+h1, h2 { margin: 16px; font-weight: 600; }
+
+a { color: rgba(255,255,255,1); }
+.white { color: rgba(255,255,255,1); }
+p {  text-indent:  32px; 
+	text-align: justify; 
+	margin:  16px;
+	hyphens: auto;
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+	-ms-hyphens: auto; }
+	
+header > .right > div > p { 
+	margin:  16px; 
+	text-align: right;
+	hyphens: none;
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none; }
+
+ul { margin: 8px 16px; list-style: disc inside; font: 14px/32px Arial; }
+div {  border-radius: 16px; }
+img { border-radius: 16px;}
+
+/*Оформление средних разрешений*/
+@media ( max-width: 950px ) {
+.paddy { margin: 8px 16px; }
+.line { min-height: 0; max-height: 0; }
+.content { flex-direction: column; flex: none; }
+.content > .left { display: block; }
+.content > .left > .top > div { align-items: center; }
+.content > .left > .bottom > div { align-items: center; }
+.content > .right > .bottom { flex-direction: column;  }
+.content > .right > .bottom > .left {  }
+footer { flex-direction: column; }
+footer > section > div { justify-content: center; }
+footer > .right > section { margin: 8px 16px; }
+footer > .right > .top > div { min-height: 100px; }
+footer > .right  { flex-direction: column; flex: 1 1 auto; margin: 0 16px; }
+}
+
+/*Оформление маленьких разрешений*/
+@media ( max-width: 720px ) {
+header { flex-direction: column; }
+header > .center { min-height: 100px; }
+header > .right { min-height: 100px; }
+header > .center > div { min-height: 100px; }
+}

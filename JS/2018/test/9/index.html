@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Test</title>
+	<meta name="author" content="Egor" >
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="content-style-type" content="text/css">
+	<link href="reset.css" rel="stylesheet" type="text/css">
+	<link href="style.css" rel="stylesheet" type="text/css">
+	<script src="jquery-3.1.1.min.js"></script>
+</head>
+<!-- Реализуйте функцию toRna, которая принимает на вход цепь ДНК и возвращает соответствующую цепь РНК (совершает транскрипцию РНК). -->
+<body>
+	<header class="headers"><h1>Преобразование DNA в RNA</h1></header>
+	<article>
+		<section>
+			<div class="info">
+				Реализуйте функцию toRna, которая принимает на вход цепь ДНК и возвращает соответствующую цепь РНК (совершает транскрипцию РНК).
+			</div>
+			<div>
+				<input name="value_pre"  type="text" maxlength="20"  placeholder="Введите последовательность a,c,g,t,A,C,G,T" autofocus="true" pattern="^[a,c,g,t,A,C,G,T]+$">
+				<input name="value_ok" type="button" value="ok">
+			</div>
+		</section>
+		<section>
+			<div class="_out">
+			</div>
+		</section>
+	</article>
+<script>
+var t, tt;
+function toRna( t ) {
+	var i = 0;
+	t = t.toUpperCase( );
+	while ( i != t.length ) {
+		switch ( t[ i ] ) {
+			case "G" : tt += "C"; break
+			case "C" : tt += "G"; break
+			case "T" : tt += "A"; break
+			case "A" : tt += "U"; };
+		i++;
+	};
+	return tt;
+};
+$( '[name = value_ok]' ).click( function ( ) {
+	tt = "";
+	var reg = new RegExp ( "^[a,c,g,t,A,C,G,T]+$" );
+	t = $( '[name = value_pre]' ).val( );
+	if ( t && reg.test( t ) ) {
+		$( "div._out" ).empty( );
+		$( "div._out" ).append( toRna( t ) );
+	} else { $( "div._out" ).empty( ); }
+});
+</script>
+</body>
+</html>

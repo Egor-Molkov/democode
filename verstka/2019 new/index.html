@@ -1,0 +1,355 @@
+
+<html lang="ru-RU">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="content-style-type" content="text/css">
+	<title>New page</title>
+	
+<script>
+
+//Preload support !TODO
+var DOMTokenListSupports = function(tokenList, token) {
+	if (!tokenList || !tokenList.supports) {
+		return;
+	} else {
+		return tokenList.supports(token);
+	}
+};
+
+//Протестировать поддержку preload
+var linkSupportsPreload = DOMTokenListSupports(document.createElement("link").relList, "preload");
+
+// Добавить таблицу стилей
+function addLinkHead(linkHref) {
+	if ( linkSupportsPreload && linkHref ) {
+		var	link = document.createElement("link");
+			link.rel = "preload";
+			link.as = "style";
+			link.href = linkHref;
+			link.onload = function () {
+				this.rel='stylesheet';
+			};
+	} else {
+		var	link = document.createElement("link");
+			link.rel = "stylesheet";
+			link.href = linkHref;
+	}
+	document.head.appendChild(link);
+};
+
+addLinkHead("css/bootstrap.min.css");
+addLinkHead("css/owl.carousel.min.css");
+addLinkHead("css/owl.theme.default.css");
+
+</script>
+
+<style>
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto'), local('Roboto-Regular'), url('font/Roboto.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}   
+@font-face {
+    font-family: 'Roboto';
+    src: local('Roboto Bold'), local('Roboto-Bold'), url('font/Robotobold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+   
+html {	color: rgba(72, 68, 82, 1);
+		font-family:  Roboto, serif;
+		font-size: 14px; line-height: 1.15;		
+		hyphens: auto;	-webkit-hyphens: auto; -moz-hyphens: auto; -ms-hyphens: auto; }
+		
+.owl-carousel .owl-item img {width:auto;}
+.card-img-top {width:auto;}
+.navbar-light .navbar-toggler {border:none;}
+.row{margin:0!important;}
+.mysearch{min-width:64px;}
+.card-car{border:1px solid rgba(255,255,255,1);filter: sepia(0.8);transition: 2000ms ease-out;}
+.card-car:hover {box-shadow: 0 0 32px rgba(0,0,0,0.1);
+border:1px solid rgba(23, 162, 184, 0.15);filter: sepia(0);
+transition: 300ms ease-in;}
+.callout-success{border: 1px solid rgba(150,150,150,0.1);border-left: 3px solid #28a745; }
+.callout-info{border: 1px solid rgba(150,150,150,0.1);border-left: 3px solid #17a2b8; }
+.plyr--video .plyr__control.plyr__tab-focus, .plyr--video .plyr__control:hover, .plyr--video .plyr__control[aria-expanded="true"] {
+    background: #17a2b8;color: #fff;}
+.plyr--video .plyr__control{background: rgba(0,0,0,0);color: #fff;}
+.plyr__control.plyr__control--overlaid{background: #17a2b8;opacity:0.5;color: #fff; border-radius: 3px;}
+.plyr__control.plyr__control--overlaid:hover{opacity:1;transition: opacity 600ms ease;}
+.plyr--full-ui input[type="range"] {color:#17a2b8;}
+.fixed{position: fixed; top:-250px;z-index: 1010;opacity:0;}
+.fixed.hidden{top:-250px;opacity:0;transition: top 500ms ease-out, opacity 900ms ease-out;}
+.fixed.show{top:0;opacity:1;transition: top 500ms ease-in, opacity 900ms ease-in;box-shadow: 0 0 20px rgba(0,0,0,0.15)}
+.scroll-top{width: 64px;height: 64px; border-radius: 100%; position: fixed;
+bottom:-70px; right: 30px;z-index: 1010;opacity:0;border:3px solid #fff}
+.scroll-top.hidden{opacity:0;bottom:-70px;transition: bottom 300ms ease-out,opacity 400ms ease-out;}
+.scroll-top.show{opacity:0.7;bottom:30px;transition: bottom 300ms ease-in,opacity 400ms ease-in;}
+.scroll-top.show:hover{opacity:1;transition: opacity 300ms ease-in;}
+.nav-hov{opacity: 0.5!important;}
+.active > .nav-link > .nav-hov{opacity: 0.9!important;}
+#containerImg img{cursor: pointer;}
+</style>
+
+</head>
+
+<body class="d-flex flex-column w-100">
+
+<header class="px-4 pb-1 pb-lg-3 pt-2 pt-lg-3 bg-warning row w-100">
+	<div id="wraplogo" class="col-lg-5 col-12 row align-items-lg-center p-0">
+		<svg id="logo" class="col-lg-4 col-12 m-0 p-0" width="150px" height="150px" preserveAspectRatio="xMidYMid meet" viewBox="0,0,300,300"></svg>
+		<h1 class="h3 text-dark col-lg-8 col-12 m-0 p-0 text-center font-weight-bold">Пример верстки</h1>
+	</div>
+	<div class="col-lg-7 col-12 px-0">
+		<nav class="navbar navbar-expand-sm navbar-light px-0 justify-content-around">
+  			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    				<span class="navbar-toggler-icon"></span>
+  			</button>
+  			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    				<ul class="navbar-nav mr-auto text-nowrap">
+      				<li class="nav-item active">
+        					<a class="nav-link" href="#">
+        						<img class="mb-1 nav-hov" src="img/round-home-24px.svg" height="19" width="19">
+        						Главная
+        					</a>
+      				</li>
+      				<li class="nav-item">
+        					<a id="contact" class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal" >
+        					     <img class="mb-1 nav-hov" src="img/round-phone-24px.svg" height="19" width="19">
+        						Контакты
+        					</a>
+      				</li>
+      				<li class="nav-item dropdown">
+        					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        					     <img class="mb-1 nav-hov" src="img/round-subject-24px.svg" height="19" width="19">
+         						Ещё
+        					</a>
+        					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          					<a class="dropdown-item" href="#">Пункт 1</a>
+          					<a class="dropdown-item" href="#">Пункт 2</a>
+          					<div class="dropdown-divider"></div>
+          					<a class="dropdown-item" href="#">Пункт 3</a>
+        					</div>
+      				</li>
+    				</ul>
+				<form class="form-inline my-2 my-lg-0 flex-nowrap justify-content-end">
+      				<input class="form-control w-75" style="border-bottom-right-radius:0;border-top-right-radius:0;" type="search" placeholder="Ваш текст" aria-label="Search">
+      				<button class="btn btn-dark my-2 my-sm-0 mysearch w-25" style="border-bottom-left-radius:0;border-top-left-radius:0;" type="submit">Поиск</button>
+    				</form>
+  			</div>
+		</nav>
+	</div>
+</header>
+
+<section class="content flex-grow-1 px-2 px-lg-4 pb-4 w-100">
+	<p class="h4 mx-2 mt-4 mb-3">Каруселька навыков</p>
+
+	<div class="owl-carousel owl-theme mb-4">
+
+		<div class="m-2" style="height: 250px;min-width:200px;">
+  			<img src="img/FFFFFF-0.png" data-src="img/Bootstrap-logo.png" class="lazy card-img-top m-auto py-3" alt="Bootstrap" height="200">
+		</div>
+		<div class="m-2" style="height: 250px;min-width:200px;">
+   			<img src="img/FFFFFF-0.png" data-src="img/sass-logo.png" class="lazy card-img-top m-auto py-3" alt="Sass" height="200">
+		</div>
+		<div class="m-2" style="height: 250px;min-width:200px;">
+  			<img src="img/FFFFFF-0.png" data-src="img/owl-logo.png" class="lazy card-img-top m-auto py-3" alt="Owl" height="200">
+		</div>
+		<div class="m-2" style="height: 250px;min-width:200px;">
+  			<img src="img/FFFFFF-0.png" data-src="img/jquery-logo.png" class="lazy card-img-top m-auto py-3" alt="Jquery" height="200">
+		</div>
+		<div class="m-2" style="height: 250px;min-width:200px;">
+   			<img src="img/FFFFFF-0.png" data-src="img/snap-svg-logo.png" class="lazy card-img-top m-auto py-3" alt="Snap.svg" height="200">
+		</div>
+		<div class="m-2" style="height: 250px;min-width:200px;">
+  			<img src="img/FFFFFF-0.png" data-src="img/lazy-logo.png" class="lazy card-img-top m-auto py-3" alt="Lazyload" height="200">
+		</div>
+
+	</div>
+	
+	<div class="callout-success mx-2 mt-4 px-4 py-3">
+		<span class="card-title h5 text-success border-bottom border-success pb-2" style="line-height: 2;">Для ускорения загрузки ресурсов применены</span>
+		<ol class="text-success pt-3">
+			<li>Предзагрузка стилей, для браузеров с поддержкой.</li>
+			<li>Асинхронная загрузка скриптов, в порядке очереди.</li>
+			<li>Ленивая загрузка для картинок.</li>
+			<li>Правильные глифы нужных шрифтов (woff2).</li>
+		</ol>
+	</div>
+	<div class="callout-info mx-2 mt-4 px-4 py-3">
+		<span class="card-title h5 text-info border-bottom border-info pb-2" style="line-height: 2;">Используемые вещи</span>
+		<ul class="text-info pt-3">
+			<li>Bootstrap - для быстрой верстки.</li>
+			<li>SASS предпроцессор - для настройки сетки, отступов, цветов и удаления лишнего функционала.</li>
+			<li>Jquery - для манипуляций с DOM и как основа для плагинов.</li>
+			<li>Snap.svg - для оживления svg.</li>
+			<li>Owl carousel - неплохая UI каруселька, с тачем и подстройкой кал-ва слайдов под разрешение.</li>
+			<li>А так же, фиксированное меню с анимацией, через клонирование основного и анимированная кнопка вверх.</li>
+	</div>
+	<div class="container" id="containerImg">
+	<div class="row pt-4">
+		<div class="col-12 col-md-6 col-lg-4 text-center py-4 px-0 card-car">
+			<img src="img/FFFFFF-0.png" data-src="img/Bootstrap-logo.png" class="lazy card-img-top m-auto" alt="Bootstrap" height="200" data-toggle="modal" data-target="#exampleModal">
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 text-center py-4 px-0 card-car">
+			<img src="img/FFFFFF-0.png" data-src="img/sass-logo.png" class="lazy card-img-top m-auto" alt="Sass" height="200" data-toggle="modal" data-target="#exampleModal">
+		</div>		
+		<div class="col-12 col-md-6 col-lg-4 text-center py-4 px-0 card-car">
+   			<img src="img/FFFFFF-0.png" data-src="img/owl-logo.png" class="lazy card-img-top m-auto" alt="Owl" height="200" data-toggle="modal" data-target="#exampleModal">
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 text-center py-4 px-0 card-car">
+ 			<img src="img/FFFFFF-0.png" data-src="img/jquery-logo.png" class="lazy card-img-top m-auto" alt="Jquery" height="200" data-toggle="modal" data-target="#exampleModal">
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 text-center py-4 px-0 card-car">
+  			<img src="img/FFFFFF-0.png" data-src="img/snap-svg-logo.png" class="lazy card-img-top m-auto" alt="Snap.svg" height="200" data-toggle="modal" data-target="#exampleModal">
+		</div>
+		<div class="col-12 col-md-6 col-lg-4 text-center py-4 px-0 card-car">
+  			<img src="img/FFFFFF-0.png" data-src="img/lazy-logo.png" class="lazy card-img-top m-auto" alt="Lazyload" height="200" data-toggle="modal" data-target="#exampleModal">
+		</div>
+	</div>
+	</div>
+</section>
+
+<footer class="p-4 bg-light row w-100">
+	<div class="text-center col-lg-4 col-12 order-lg-1 order-2 my-2">Пример верстки с UI компанентами</div>
+	<div class="text-center col-lg-4 col-12 order-lg-2 order-1">
+		<ul class="nav flex-column">
+			<li class="nav-item"><a class="nav-link text-secondary" href="#">Пункт 1</a></li>
+			<li class="nav-item"><a class="nav-link text-secondary" href="#">Пункт 2</a></li>
+			<li class="nav-item"><a class="nav-link text-secondary" href="#">Пункт 3</a></li>
+		</ul>
+	</div>
+	<div class="text-center col-lg-4 col-12 order-lg-3 order-3 my-2"><a href="mailto:egor-gor@ya.ru" class="text-dark">Егор</a> 2019г</div>
+</footer>
+
+<div class="scroll-top hidden bg-warning text-white" style="cursor:pointer;">
+<img src="img/round-arrow_drop_up-24px.svg" width="60" height="60" />
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Асинхронная подгрузка скриптов в порядке очереди-->
+<script defer src="js/pathSVG.js"></script>
+<script defer src="js/jquery-3.3.1.min.js"></script>
+<script defer src="js/owl.carousel.min.js"></script>
+<script defer src="js/bootstrap.min.js"></script>
+<script defer src="js/snap.svg-min.js"></script>
+<script defer src="js/lazyload.min.js"></script>
+
+<script>
+document.addEventListener( "DOMContentLoaded", function( ) {
+
+//CAROUSEL
+$(document).ready(function(){
+  $(".owl-carousel").owlCarousel({
+    loop:true,
+    nav:true,
+    dot:true,
+    margin:10,
+    navElement: 'div class="navy" role="presentation"',
+    autoplay:true,
+    autoplayTimeout:3000,
+    autoplayHoverPause:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:2
+        },
+        1000:{
+            items:3
+        }
+    }
+  });
+});
+
+// Lazyload
+var lazyLoadInstance = new LazyLoad({
+    elements_selector: ".lazy"
+});
+if (lazyLoadInstance) {
+    lazyLoadInstance.update();
+}
+// Lazyload сброс в карусельке (небольшай глюк)
+setTimeout(function () {
+var lazyLoadInstance = new LazyLoad({
+    elements_selector: "[src = 'img/FFFFFF-0.png']"
+});
+if (lazyLoadInstance) {
+    lazyLoadInstance.update();
+}
+},1000)
+
+//LOGO
+var COLORFILL = "#ffc107";	// заливка
+var COLORSTROKE = "#333";	// обводка
+var s = Snap("#logo");		// слой
+var path_aa = s.path(aa).attr({fill:COLORFILL,stroke:COLORSTROKE,strokeWidth:"4",strokeLinejoin:"round",strokeLinecap:"round"});
+
+// при наведении на svg
+$('#logo').mouseenter(function () {
+	path_aa.animate({ 'path': ba }, 600, mina.easein);
+});
+// при уходе с svg
+$('#logo').mouseleave(function () {
+	path_aa.animate({ 'path': aa }, 600, mina.easeout);								
+});
+
+//Header fixed and button Up
+$(document).ready(function(){ 
+	$("header").clone().addClass("fixed hidden").appendTo("body");
+	$(".fixed").find("svg").remove();
+	$(".scroll-top").click(function () {
+		$("html, body").animate({scrollTop: "0"}, 600)
+	});
+	$(document).scroll(function(){	
+		var offsetTop = $('body').scrollTop();
+			
+		if (offsetTop>250) {
+			$(".fixed").removeClass("hidden").addClass("show");
+		} else { 
+			$(".fixed").removeClass("show").addClass("hidden");
+		}
+		if (offsetTop>450) {
+			$(".scroll-top").removeClass("hidden").addClass("show");
+		} else { 
+			$(".scroll-top").removeClass("show").addClass("hidden");
+		}
+	});
+});
+
+//Header fixed and button Up
+$(document).ready(function(){ 
+	$("#containerImg img").click(function () {
+		var srcHref = $(this).attr("src");
+		var html = '<img src="' + srcHref + '" class="p-3" style="max-width:100%;max-height:100%;" width="100%" height="100%">';
+		$(".modal-body").empty().html(html);
+	});
+	$(".nav-item").delegate("#contact", "click", function () {
+		var html = '<a href="mailto:egor-gor@ya.ru" class="text-dark">Свяжитесь со мной!</a>';
+		$(".modal-body").empty().html(html);
+	});
+});
+
+});
+</script>
+
+</body>
+</html>

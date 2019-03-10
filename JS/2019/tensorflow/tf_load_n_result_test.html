@@ -1,0 +1,68 @@
+
+<!doctype html>
+<!-- Предобученая сеть складывает одно-двузначные числа.
+При обучении использована выборка из 1/3 возможных примеров. Тестовых примеров - 20.
+Параметры сети - рекурентная 32 нейрона в два слоя, веса изменялись при каждой эпохе, эпох - 120
+итоговые показатели обучения:
+train loss = 0.123999; train accuracy = 0.966667; validation loss = 0.368903; validation accuracy = 0.883333
+-->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="tf.js"></script>
+
+</head>
+
+<style>
+  .setting {
+    padding: 6px;
+  }
+
+  #trainModel {
+    margin-top: 12px;
+  }
+
+  .setting-label {
+    display: inline-block;
+    width: 12em;
+  }
+
+  .answer-correct {
+    color: green;
+  }
+
+  .answer-wrong {
+    color: red;
+  }
+</style>
+
+<body>
+  <div class='tfjs-example-container centered-container'>
+    <section class='title-area'>
+      <h1>TensorFlow.js: Addition RNN</h1>
+      <p class='subtitle'>Load a model to learn addition by example</p>
+    </section>
+      <div class="setting">
+        <span class="setting-label">Json Upload</span>
+        <input id="jsonUpload" type="file" />
+      </div>
+      <div class="setting">
+        <span class="setting-label">Weights Upload</span>
+        <input id="weightsupload" type="file" />
+      </div>
+      <div class="setting">
+        <span class="setting-label">Exemple (12+34)</span>
+        <input id="param"/>
+      </div>
+      <button id="outParam">Get result</button>
+      <section>
+        <p class='section-head'>Result</p>
+        <p id="testExamples"></p>
+      </section>
+
+    </div>
+  </div>
+
+</body>
+
+<script src="tf_load_n_result_test.js"></script>

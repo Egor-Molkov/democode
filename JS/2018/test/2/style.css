@@ -1,0 +1,22 @@
+html { height: 100%; font-family: Arial; }
+
+body { display: flex; flex-direction: column; height: 95%; }
+
+header, article { display: flex; margin: 0 5% 0 5%; }
+
+
+header {  background-color: rgba(79,148,205,1); flex-basis: 5%; flex: none;}
+
+article { height: 100%; background-color: rgba(79,148,205,0.1);flex-direction: column; }
+
+section { display: flex; flex-direction: column; margin: 16px; }
+
+div  { text-indent: 20px; display: flex; flex-wrap: nowrap;width: 100%; }
+
+h1 { width: 100%; text-align: center; font-size: 32px; }
+
+
+
+
+input { width:  90%;  margin: 0 0 0 5px; }
+input[type="button"] { margin: 0 0 0 0; vertical-align: top; height: 100% }

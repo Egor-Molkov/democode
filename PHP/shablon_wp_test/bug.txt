@@ -1,0 +1,9 @@
+class WP
+	public function handle_404() 
+
+
+		// We will 404 for paged queries, as no posts were found.
+		if ( ! is_paged() ) {
+
+		// We will 404 for paged queries, as no posts were found.
+		if ( is_paged() ) {

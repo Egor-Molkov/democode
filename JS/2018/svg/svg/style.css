@@ -1,0 +1,25 @@
+html { height: 100%; font-family: Arial; }
+
+body { display: flex; flex-direction: column;height:  100%;}
+
+
+header, article { display: flex; margin: 0 5% 0 5%; flex: none; }
+
+article {height:  100%}
+section {  }
+
+h1 { width: 100%; text-align: center; font-size: 32px; }
+
+header {  background-color:#cd5555;  }
+.left {flex-basis: 80%;}
+.right {}
+svg {}
+
+
+
+
+@media all and (max-width: 600px) {
+body {background:none;}
+header, article { margin: 0 0 0 0; }
+h1 { width: 100%; text-align: center; font-size: 16px; }
+}

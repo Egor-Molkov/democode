@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title>Prost</title>
+
+	<meta name="author" content="Egor" >
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="content-style-type" content="text/css">
+
+	<link href="reset.css" rel="stylesheet" type="text/css">
+	<link href="style.css" rel="stylesheet" type="text/css">
+
+	<script src="prost.js" ></script>
+</head>
+
+<body>
+
+	<header class="headers"><h1>Prost stopkadr vhs</h1></header>
+
+	<article>
+		
+		<canvas id="output" width="400" height="500"></canvas>
+
+	</article>
+<script id='vertex-shader' type='x-shader/x-vertex'>
+	precision lowp float;
+	
+	attribute vec2 a_position;
+
+	void main() {
+		gl_Position = vec4(a_position, 0, 1);
+	}
+</script>
+<!--
+<script id='vertex-shader' type='x-shader/x-vertex'>
+	precision lowp float;
+	uniform float u_time;
+	attribute vec2 a_position;
+
+	void main() {
+		vec2 pos;
+		pos = a_position + vec2(1) * vec2(sin(u_time), sin(u_time));
+		gl_Position = vec4(pos, 0, 1);
+	}
+</script>
+
+	void main() {
+		
+		gl_FragColor = 
+			texture2D(u_texture,  gl_FragCoord.xy / u_canvas_size
+			+ sin(u_time + gl_FragCoord.y / 30.0*u_rand) / 140.0) 
+			+ texture2D(u_texture,  gl_FragCoord.xy / u_canvas_size
+			+ sin(u_time + gl_FragCoord.x / 30.0*u_rand) / 140.0) 
+			- vec4(0.2,0.2,0.2,0);
+ 	}
+
+-->
+
+<script id='fragment-shader' type='x-shader/x-fragment'>
+	precision lowp float;
+	
+	uniform sampler2D u_texture;
+	uniform float u_time;
+	uniform float u_canvas_size;
+	uniform float u_rand;
+
+	void main() {
+		vec4 cof;
+		
+		if ( ( mod((gl_FragCoord.x ), 4.0) > sin(u_time) ) ^^ ( mod((gl_FragCoord.y ), 4.0) > 0.5 ) ) 
+			{ cof = vec4(0.5); } else { cof = vec4(0); }
+			
+		
+		gl_FragColor = 
+			texture2D(u_texture,  gl_FragCoord.xy / u_canvas_size
+			+ sin(u_time + gl_FragCoord.y / 30.0/u_time/u_rand) / 140.0).ssss
+			+ texture2D(u_texture,  gl_FragCoord.xy / u_canvas_size
+			+ cos(u_time + gl_FragCoord.x / 30.0/u_time/u_rand) / 140.0) 
+			- cof;
+	}
+</script>
+
+
+
+<script>
+		
+document.addEventListener( "load", ready( ) );
+
+function ready( ) {
+
+var canvas = document.getElementById('output');
+var gl = canvas.getContext('webgl');
+
+function initShaders( ) {
+	var vertexShader = getShader( gl, "vertex-shader" );
+	var fragmentShader = getShader( gl, "fragment-shader" );
+
+	shaderProgram = gl.createProgram( );
+	gl.attachShader( shaderProgram, vertexShader );
+	gl.attachShader( shaderProgram, fragmentShader );
+	gl.linkProgram( shaderProgram );
+
+	var vertexPositionAttribute = gl.getAttribLocation( shaderProgram, "a_position" );
+
+	gl.enableVertexAttribArray( vertexPositionAttribute );
+	gl.vertexAttribPointer( vertexPositionAttribute, 2, gl.FLOAT, false, 0, 0 );
+
+	gl.useProgram( shaderProgram );
+};
+
+
+function initBuffers( ) {
+	var squareVerticesBuffer = gl.createBuffer( );
+	
+	gl.bindBuffer( gl.ARRAY_BUFFER, squareVerticesBuffer );
+
+	var vertices = [
+		-1, -1,
+		-1,  1,
+		 1, -1,
+		 1,  1
+	];
+  
+	gl.bufferData( gl.ARRAY_BUFFER, new Float32Array( vertices ), gl.STATIC_DRAW );
+};
+
+function createTexture( ) {
+	var image = new Image( );
+
+	image.onload = ( ) => {
+		var texture = gl.createTexture( );
+
+		gl.activeTexture( gl.TEXTURE0 );
+		gl.bindTexture( gl.TEXTURE_2D, texture );
+		gl.pixelStorei( gl.UNPACK_FLIP_Y_WEBGL, true );
+		gl.texImage2D( gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image );
+
+		gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE );
+		gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE );
+		gl.texParameteri( gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR );
+
+		gl.uniform1i( gl.getUniformLocation( shaderProgram, 'u_texture' ), 0 );
+		gl.uniform1f( gl.getUniformLocation( shaderProgram, 'u_canvas_size' ), Math.max( canvas.height, canvas.width ));
+
+
+	};
+
+	image.src = 'img2.jpeg';
+};
+
+function draw( timeStamp ) {
+	gl.uniform1f( gl.getUniformLocation( shaderProgram, 'u_rand' ), Math.random( ) );
+	gl.uniform1f( gl.getUniformLocation( shaderProgram, 'u_time' ), timeStamp / 1000.0 );
+	gl.drawArrays( gl.TRIANGLE_STRIP, 0, 4 );
+
+	requestAnimationFrame( draw );
+};
+
+function main( ) {
+	initBuffers( );
+	initShaders( );
+	createTexture( );
+	draw( );
+};
+
+main( );
+
+};	
+
+</script>
+</body>
+</html>

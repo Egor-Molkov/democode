@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Test</title>
+	<meta name="author" content="Egor" >
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="content-style-type" content="text/css">
+	<link href="reset.css" rel="stylesheet" type="text/css">
+	<link href="style.css" rel="stylesheet" type="text/css">
+	<script src="jquery-3.1.1.min.js"></script>
+</head>
+<!-- Реализуйте функцию, которая должна вернуть true, если число счастливое, и false, если нет. Количество итераций процесса поиска необходимо ограничить числом 10. -->
+<body>
+	<header class="headers"><h1>Счастливые числа</h1></header>
+	<article>
+		<section>
+			<div class="info">
+				Реализуйте функцию, которая должна вернуть true, если число счастливое, и false, если нет. Количество итераций процесса поиска необходимо ограничить числом 10.
+			</div>
+			<div>
+				<input name="value_pre"  type="text" maxlength="20"  placeholder="Введите число" autofocus="true" pattern="^[0-9]+$">
+				<input name="value_ok" type="button" value="ok">
+			</div>
+		</section>
+		<section>
+			<div class="_out">
+			</div>
+		</section>
+	</article>
+<script>
+var f, x, t, q, i;
+function conversion( y ) {
+	var z = 0, p = 0;
+	if ( i > 9 ) { return f = "false", t; };
+	if ( y > 1 ) {
+		y = String( y );
+		while ( z != y.length ) {
+			p = p + ( ( y [ z ] )^0 )*( ( y [ z ] )^0 );
+			z++;
+		};
+	} else { return t,i; };
+	p = p^0;
+	t += " -> " + p;
+	i++;
+	conversion( p );
+};
+function isHappyNumber( x ) {
+	i = 0; t = ""; q = x; f = "true";
+	conversion( x );
+	return t, i, f;
+};
+$( '[name = value_ok]' ).click( function ( ) {
+	var reg = new RegExp ( "^[0-9]+$" );
+	x = $( '[name = value_pre]' ).val( );
+	if ( x && reg.test( x ) ) { 
+		$( "div._out" ).empty( );
+		isHappyNumber( x );
+		$( "div._out" ).append( f + " " + x + t + " за " + i + " шагов" );
+	} else { $( "div._out" ).empty( ); }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+html { height: 100%; font-family: Arial; }
+
+body { display: flex; flex-direction: column;height: 100%;
+}
+
+header, article { display: flex; margin: 0 15% 0 15%; flex: none;}
+
+article  { display: flex; flex-grow: 1;}
+div{display: flex; flex-grow: 1;}
+
+h1 { width: 100%; text-align: center; font-size: 32px; }
+
+header { background: linear-gradient(to bottom right, NavajoWhite 40%, SandyBrown);  }
+
+#l { perspective: 800px; }
+#c { transform-style: preserve-3d; }
+#f { background-image: url(img.jpg);background-size: 100%;background-repeat: no-repeat;background-attachment: fixed;  }
+
+
+@media all and (max-width: 600px) {
+body {background:none;}
+header, article { margin: 0 0 0 0; }
+h1 { width: 100%; text-align: center; font-size: 16px; }
+}

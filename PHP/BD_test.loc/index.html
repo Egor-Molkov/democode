@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title>Ajax</title>
+
+	<meta name="author" content="Egor" >
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="content-style-type" content="text/css">
+
+	<link href="reset.css" rel="stylesheet" type="text/css">
+	<link href="style.css" rel="stylesheet" type="text/css">
+
+	<script src="jquery-3.1.1.min.js"></script>
+	<script src="cookie.js"></script>
+
+<!-- На примере небольшого чата, проба технологий: на клиенте Ajax, cookie; на сервере PHP, MySQL -->
+</head>
+ 
+<body>
+
+	<header class="headers"><h1>Проверка Ajax</h1></header>
+
+	<article>
+
+		<section class="_top">
+			<div class="_login">
+					<input name="login" type="text" maxlength="20"  placeholder="Ваше имя" autofocus="true">
+					<input name="login_ok" type="button" value="ok">
+			</div>
+			<div class="_text">
+					<textarea cols="10" name="text" placeholder="Ваш текст" autofocus="true"></textarea>
+					<input name="text_ok" type="button" value="ok">
+			</div>
+		</section>
+
+		<section class="_bottom"></section>
+
+	</article>
+
+	<script src="client.js" ></script>
+</body>
+</html>

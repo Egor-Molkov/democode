@@ -1,0 +1,54 @@
+html { height: 100%; font: 24px/42px Arial; }
+
+body { display: flex; flex-direction: column; height: 100%; }
+
+article { flex-direction: column; }
+
+.frame {
+	display: flex;
+	height: 100%;
+	margin: 0;
+}
+
+iframe { height: 100%; }
+
+nav { 
+	border-top-left-radius:48px; border-top-right-radius:48px;
+	border: 1px dashed rgba(0,0,0,1); border-bottom: none;
+	background: rgba(154,205,50, 1) linear-gradient(90deg, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, .4) 50% ) center center / 4em;
+}
+.menu {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	background-color: rgba(255,255,255, 0.2);
+}
+.foo {
+	width: 100%;
+	text-align: center;
+	font-size: 40px;
+}
+.foo { color: rgba(255,255,255, 1); }
+
+nav svg { display: none; height: 80px; width: 320px;  }
+nav svg text { font-size: 20px; fill: rgba(0,0,0,0.8)}
+nav svg:hover { cursor: pointer; }
+nav svg:hover text { fill: rgba(0,0,0,1); text-decoration:underline; }
+nav svg:hover path{   }
+
+path { 
+	stroke: rgba(0,0,0, 0.7);
+	stroke-width: 0px;
+	fill: none;	
+	}
+nav .foo:hover { 
+	animation: shad 1s linear 0s infinite alternate both;
+ 	}
+	
+@keyframes shad {
+	100% {
+		box-shadow: inset 0 0 50px white, 0 0 50px white
+	}
+}
+
+

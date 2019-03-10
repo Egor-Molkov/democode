@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Test</title>
+	<meta name="author" content="Egor" >
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="content-style-type" content="text/css">
+	<link href="reset.css" rel="stylesheet" type="text/css">
+	<link href="style.css" rel="stylesheet" type="text/css">
+	<script src="jquery-3.1.1.min.js"></script>
+</head>
+<!-- Реализуйте функцию isPalindrome с использованием рекурсии. -->
+<body>
+	<header class="headers"><h1>Палиндром</h1></header>
+	<article>
+		<section>
+			<div class="info">
+				Палиндром — число, слово или текст, одинаково читающееся в обоих направлениях. Например: радар, топот.
+				Реализуйте функцию isPalindrome с использованием рекурсии.
+			</div>
+			<div>
+				<input name="value_pre"  type="text" maxlength="20"  placeholder="Введите число, слово или текст" autofocus="true" pattern="^[\s0-9A-Za-zА-Яа-яЁё]+$">
+				<input name="value_ok" type="button" value="ok">
+			</div>
+		</section>
+		<section>
+			<div class="_out">
+			</div>
+		</section>
+	</article>
+<script>
+var x, f, str = "", str_1 = "", str_2 = ""; 
+function relaceSTR( x ) {
+	if ( x.length != 0 ) { 
+		str += x[ x.length-1 ]; 
+		x = x.substring( 0, x.length-1 ); 
+		relaceSTR( x ) }
+	return str;
+};
+function isPalindrome( x ) {
+	var flag = false, y;
+	y = x.length%2;
+	if ( y == 0 ) {
+		str_1 = x.substring( 0, x.length/2 );
+		str_2 = relaceSTR( x.substring( x.length/2, x.length ) );
+		if ( str_1 == str_2 ) { flag = true }
+	} else {
+		str_1 = x.substring( 0, ( ( ( x.length/2 )^0 ) + 1 ) );
+		str_2 = relaceSTR( x.substring( ( ( x.length/2 )^0 ), x.length ) );
+		if ( str_1 == str_2 ) { flag = true }}
+	return flag;
+}
+	
+$( '[name = value_ok]' ).click( function ( ) {
+	str = ""; str_1 = ""; str_2 = "";
+	var reg = new RegExp ( "^[\\s0-9A-Za-zА-Яа-яЁё]+$" );
+	x = $( '[name = value_pre]' ).val( );
+	if ( x && reg.test( x ) ) { 
+		$( "div._out" ).empty( );
+		isPalindrome( x ) ? f = "true" : f = "false";
+		$( "div._out" ).append( f );
+	} else { $( "div._out" ).empty( ); }
+});
+</script>
+</body>
+</html>
