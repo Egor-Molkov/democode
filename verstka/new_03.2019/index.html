@@ -60,7 +60,10 @@ body.onready{opacity: 1;transition: opacity 600ms ease-in;}
 
 <header class="px-4 pb-1 pb-lg-3 pt-2 pt-lg-3 bg-light row w-100 align-items-lg-end">
 	<div class="col-lg-5 col-12 row align-items-lg-end p-0 justify-content-center">
-		<img id="logo" class="lazy" src="img/FFFFFF-0.png" data-src="img/logo.png" alt="logo" height="150" width="150">
+		<picture>
+			<source media="(min-width: 600px)" data-srcset="img/logo.png">
+			<img id="logo" class="lazy" src="img/FFFFFF-0.png" data-src="img/logo-2.png" alt="logo" height="150" width="150">
+		</picture>
 		<h1 class="h3 text-dark col-lg-8 col-12 m-0 px-0 py-1 text-center font-weight-bold">Пример верстки</h1>
 	</div>
 	<div class="col-lg-7 col-12 px-0">
@@ -111,15 +114,42 @@ body.onready{opacity: 1;transition: opacity 600ms ease-in;}
 	</div>	
 	<div id="wraper" hidden="">
 		<img src="img/FFFFFF-0.png" crossorigin="anonymous">
-		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/a.jpg" crossorigin="anonymous">
-		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/b.jpg" crossorigin="anonymous">
-		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/c.jpg" crossorigin="anonymous">
-		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/d.jpg" crossorigin="anonymous">
-		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/e.jpg" crossorigin="anonymous">
-		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/f.jpg" crossorigin="anonymous">
-		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/g.jpg" crossorigin="anonymous">
-		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/h.jpg" crossorigin="anonymous">
-		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/i.jpg" crossorigin="anonymous">
+		<picture>
+			<source media="(min-width: 600px)" data-srcset="img/a.jpg">
+			<img class="lazy" src="img/FFFFFF-0.png" data-src="img/a-2.jpg" crossorigin="anonymous">
+		</picture>
+		<picture>
+			<source media="(min-width: 600px)" data-srcset="img/b.jpg">
+			<img class="lazy" src="img/FFFFFF-0.png" data-src="img/b-2.jpg" crossorigin="anonymous">
+		</picture>
+		<picture>
+			<source media="(min-width: 600px)" data-srcset="img/c.jpg">
+			<img class="lazy" src="img/FFFFFF-0.png" data-src="img/c-2.jpg" crossorigin="anonymous">
+		</picture>
+		<picture>
+			<source media="(min-width: 600px)" data-srcset="img/d.jpg">
+			<img class="lazy" src="img/FFFFFF-0.png" data-src="img/d-2.jpg" crossorigin="anonymous">
+		</picture>
+		<picture>
+			<source media="(min-width: 600px)" data-srcset="img/e.jpg">
+			<img class="lazy" src="img/FFFFFF-0.png" data-src="img/e-2.jpg" crossorigin="anonymous">
+		</picture>
+		<picture>
+			<source media="(min-width: 600px)" data-srcset="img/f.jpg">
+			<img class="lazy" src="img/FFFFFF-0.png" data-src="img/f-2.jpg" crossorigin="anonymous">
+		</picture>
+		<picture>
+			<source media="(min-width: 600px)" data-srcset="img/g.jpg">
+			<img class="lazy" src="img/FFFFFF-0.png" data-src="img/g-2.jpg" crossorigin="anonymous">
+		</picture>
+		<picture>
+			<source media="(min-width: 600px)" data-srcset="img/h.jpg">
+			<img class="lazy" src="img/FFFFFF-0.png" data-src="img/h-2.jpg" crossorigin="anonymous">
+		</picture>		
+		<picture>
+			<source media="(min-width: 600px)" data-srcset="img/i.jpg">
+			<img class="lazy" src="img/FFFFFF-0.png" data-src="img/i-2.jpg" crossorigin="anonymous">
+		</picture>
 		<img src="img/FFFFFF-0.png" crossorigin="anonymous">
 	</div>
 </section>
