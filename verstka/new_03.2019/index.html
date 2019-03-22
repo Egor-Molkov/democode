@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+
+<html lang="ru-RU">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta http-equiv="content-style-type" content="text/css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>New page</title>
+	<!-- Предварительная загрузка шрифтов -->
+	<link rel="preload" href="font/Roboto.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="font/Robotobold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<!-- Асинхронная подгрузка скриптов в порядке очереди (не блокирует основной поток)-->
+	<script defer src="js/jquery-3.3.1.min.js"></script>
+	<script defer src="js/lazyload.min.js"></script>
+	<script defer src="js/bootstrap.min.js"></script>
+	<script defer src="js/three.min.js"></script>
+
+<script>
+
+//Preload support !TODO
+var DOMTokenListSupports = function( tokenList, token ) {
+	if ( !tokenList || !tokenList.supports ) { return } else { return tokenList.supports(token) }
+};
+
+//Протестировать поддержку preload
+var linkSupportsPreload = DOMTokenListSupports( document.createElement( "link" ).relList, "preload" );
+
+// Добавить таблицу стилей
+function addLinkHead( source ) {
+	if ( source ) {
+		var	link = document.createElement( "link" );
+		if ( linkSupportsPreload ) {
+			link.rel = "preload";
+			link.href = source;
+			link.as = "style";
+			link.crossorigin = "anonymous";
+			link.onload = function() {
+				this.rel='stylesheet';
+			};
+		} else {
+			link.rel = "stylesheet";
+			link.href = source;
+		}
+		document.head.appendChild( link );
+	}
+};
+
+addLinkHead( "css/bootstrap.min.css" );
+addLinkHead( "css/style.css" );
+</script>
+<style>
+body{opacity: 0;}
+body.onready{opacity: 1;transition: opacity 600ms ease-in;}
+</style>
+</head>
+
+
+<body class="d-flex flex-column w-100" >
+
+<header class="px-4 pb-1 pb-lg-3 pt-2 pt-lg-3 bg-light row w-100 align-items-lg-end">
+	<div class="col-lg-5 col-12 row align-items-lg-end p-0 justify-content-center">
+		<img id="logo" class="lazy" src="img/FFFFFF-0.png" data-src="img/logo.png" alt="logo" height="150" width="150">
+		<h1 class="h3 text-dark col-lg-8 col-12 m-0 px-0 py-1 text-center font-weight-bold">Пример верстки</h1>
+	</div>
+	<div class="col-lg-7 col-12 px-0">
+		<nav class="navbar navbar-expand-sm navbar-light p-0 justify-content-around">
+  			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    				<span class="navbar-toggler-icon"></span>
+  			</button>
+  			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    				<ul class="navbar-nav mr-auto text-nowrap">
+      				<li class="nav-item active">
+        					<a class="nav-link py-0" href="#">
+        						<img class="mb-1 nav-hov" src="img/round-home-24px.svg" height="19" width="19" alt="home">
+        						Главная
+        					</a>
+      				</li>
+      				<li class="nav-item">
+        					<a class="nav-link py-0" href="#" data-toggle="modal" data-target="#exampleModal" >
+        					     <img class="mb-1 nav-hov" src="img/round-phone-24px.svg" height="19" width="19" alt="contact">
+        						Контакты
+        					</a>
+      				</li>
+      				<li class="nav-item dropdown">
+        					<a class="nav-link dropdown-toggle py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        					     <img class="mb-1 nav-hov" src="img/round-subject-24px.svg" height="19" width="19" alt="dropdown">
+         						Ещё
+        					</a>
+        					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          					<a class="dropdown-item" href="#">Пункт 1</a>
+          					<a class="dropdown-item" href="#">Пункт 2</a>
+          					<div class="dropdown-divider"></div>
+          					<a class="dropdown-item" href="#">Пункт 3</a>
+        					</div>
+      				</li>
+    				</ul>
+				<form class="form-inline my-2 my-lg-0 flex-nowrap justify-content-end">
+      				<input class="form-control w-75" style="border-bottom-right-radius:0;border-top-right-radius:0;" type="search" placeholder="Ваш текст" aria-label="Search">
+      				<button class="btn btn-dark my-2 my-sm-0 mysearch w-25" style="border-bottom-left-radius:0;border-top-left-radius:0;" type="submit">Поиск</button>
+    				</form>
+  			</div>
+		</nav>
+	</div>
+</header>
+
+<section class="content flex-grow-1 px-2 px-lg-4 py-4 w-100 text-center" style="cursor:pointer;">
+	<div class="w-100 pb-1">
+	<p class="h4 pb-1">Каруселька webGL</p>
+	<p>Зажимаем и тащим (тач), или влево и вправо (клавиатура), или отодвигаем курсор и получаем автоплей</p>
+	</div>	
+	<div id="wraper" hidden="">
+		<img src="img/FFFFFF-0.png" crossorigin="anonymous">
+		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/a.jpg" crossorigin="anonymous">
+		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/b.jpg" crossorigin="anonymous">
+		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/c.jpg" crossorigin="anonymous">
+		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/d.jpg" crossorigin="anonymous">
+		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/e.jpg" crossorigin="anonymous">
+		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/f.jpg" crossorigin="anonymous">
+		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/g.jpg" crossorigin="anonymous">
+		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/h.jpg" crossorigin="anonymous">
+		<img class="lazy" src="img/FFFFFF-0.png" data-src="img/i.jpg" crossorigin="anonymous">
+		<img src="img/FFFFFF-0.png" crossorigin="anonymous">
+	</div>
+</section>
+<section class="flex-grow-1 px-2 px-lg-4 pb-3 w-100 text-center">
+	<div class="w-100">
+		<p class="text-left">
+			За основу был взят пример с <a href="https://codepen.io/mwmwmw/pen/VgemeN">codepen</a>.
+			Используем three.js для загрузки текстур (есть ограничение для webgl размер текстур обязательно ^2, 
+			в данном случае 1024x1024, также при просмотре локально возможны проблемы в хроме, из-за cors+canvas),
+			в принципе можно и без фреймворка, но лень возиться, по этой же причине не сделал навигацию,
+			так как это всего навсего демка.
+		</p>
+	</div>
+	<div class="contener-form">
+		<form id="feedback">
+		<h3>Ну и какая нибудь форма..</h3>
+			<p>
+				<label for="name">Ваше имя</label>
+				<input style="outline:none;" id="name" name="f_name" value="" maxlength="30" placeholder="Иван" required="" autofocus="true" type="text">
+			</p> 
+		
+			<p>
+				<label for="phone">Телефон</label>
+				<input style="outline:none;" id="phone" name="f_phone" value="" maxlength="22" pattern="^[0-9 +-]+$" required="" placeholder="8-900-888-77-66" type="tel">
+			</p> 
+		
+				<p>
+					<label for="email">Email</label>
+					<input style="outline:none;" id="email" name="f_email" value="" maxlength="30" placeholder="name@info.ru" required="" type="email">
+				</p> 
+		
+				<p>
+					<label for="text">Сообщение</label>
+					<textarea style="outline:none;" cols="10" id="text" name="f_text" placeholder="Ваш текст" rows="4" required=""></textarea>
+				</p>
+			<p style="justify-content:center;">
+				<button formmethod="get" class="btn btn-dark" type="submit">Отправить</button>
+			</p> 
+		</form>
+	</div>
+</section>
+<footer class="p-4 bg-light row w-100">
+	<div class="text-center col-lg-4 col-12 order-lg-1 order-2 my-2">Пример верстки со своей каруселькой webgl</div>
+	<div class="text-center col-lg-4 col-12 order-lg-2 order-1">
+		<ul class="nav flex-column">
+			<li class="nav-item"><a class="nav-link text-secondary" href="#">Пункт 1</a></li>
+			<li class="nav-item"><a class="nav-link text-secondary" href="#">Пункт 2</a></li>
+			<li class="nav-item"><a class="nav-link text-secondary" href="#">Пункт 3</a></li>
+		</ul>
+	</div>
+	<div class="text-center col-lg-4 col-12 order-lg-3 order-3 my-2"><a href="mailto:egor-gor@ya.ru" class="text-dark">Егор</a> 2019г</div>
+</footer>
+
+<div class="scroll-top hidden bg-info text-white" style="cursor:pointer;">
+	<img src="img/round-arrow_drop_up-24px.svg" width="60" height="60" alt="up">
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <a href="mailto:egor-gor@ya.ru" class="text-dark">Свяжитесь со мной!</a>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<!-- Вершинный шейдер -->
+<script id="vertexShader" type="x-shader/x-vertex">
+	precision mediump float;
+	precision mediump int;
+			
+	varying vec2 vUv;
+			
+	void main()	{
+		vUv = uv;
+		gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1);
+	}
+</script>
+<!-- Фрагментарный шейдер -->
+<script id="fragmentShader" type="x-shader/x-vertex">
+	precision mediump float;
+	precision mediump int;
+	
+	varying vec2 vUv;
+      		
+	uniform float blend;
+	uniform sampler2D tex1;
+	uniform sampler2D tex2;
+ 
+	float displaceAmount = 0.1;
+  
+	void main()	{
+
+		float blend2 = 1.-blend;
+		vec4 image1 = texture2D( tex1, vUv );
+		vec4 image2 = texture2D( tex2, vUv );
+      
+		float t1 = (( image2.r * displaceAmount ) * blend ) * 2.;
+		float t2 = (( image1.r * displaceAmount ) * blend2 ) * 2.;
+        
+		vec4 imageA = texture2D( tex2, vec2( vUv.x - t1, vUv.y )) * blend2;
+		vec4 imageB = texture2D( tex1, vec2( vUv.x + t2, vUv.y )) * blend;
+        
+		gl_FragColor =	imageA.bbra * blend + imageA * blend2 +
+					imageB.bbra * blend2 + imageB * blend;
+	}
+</script>
+
+<script>
+document.addEventListener( "DOMContentLoaded", function() {
+
+$("html, body" ).animate( {scrollTop: "0"}, 0 );
+$( "body" ).addClass("onready");
+
+// Header fixed, button Up and lazy
+$( document ).ready( function() {
+	$( "header" ).clone().addClass( "fixed hidden" ).appendTo( "body" );
+	$( ".fixed" ).find( "#logo" ).remove();
+	$( ".scroll-top" ).click( function () {
+		$("html, body" ).animate( {scrollTop: "0"}, 600 )
+	});
+	$( document ).scroll( function() {	
+		var offsetTop = $( "html, body" ).scrollTop();
+			
+		if ( offsetTop > 250 ) {
+			$( ".fixed" ).removeClass( "hidden" ).addClass( "show" );
+		} else { 
+			$( ".fixed" ).removeClass( "show" ).addClass( "hidden" );
+		}
+		if ( offsetTop > 450 ) {
+			$( ".scroll-top" ).removeClass( "hidden" ).addClass( "show" );
+		} else { 
+			$( ".scroll-top" ).removeClass( "show" ).addClass( "hidden" );
+		}
+	});
+	// Lazyload при подгрузке текстур вызываем карусельку
+	var lazyLoadInstance = new LazyLoad( {
+		elements_selector: ".lazy",
+		callback_finish:callback_finish
+	} );
+	if ( lazyLoadInstance ) {
+		lazyLoadInstance.loadAll();
+		lazyLoadInstance.update();
+	}
+});
+
+// Carousel webGL
+var callback_finish = function() {
+
+let boxy = document.querySelector( ".content" );
+let imageContainer = document.getElementById( "wraper" );
+let imageEl = imageContainer.getElementsByTagName( "img" );
+
+const IMAGE_SIZE = 1024;
+const NEXT_SLIDE = 5000;
+
+// ARTWORK BY THOMAS DENMARK
+// https://www.artstation.com/thomden
+//
+// I had used it in this codepen just for testing purposes.
+const MOUSE_WHEEL_EVENT = "wheel";
+const TOUCH_MOVE = "touchmove";
+const TOUCH_END = "touchend";
+const MOUSE_DOWN = "mousedown";
+const MOUSE_UP = "mouseup";
+const MOUSE_MOVE = "mousemove";
+class ScrollPos {
+	constructor() {
+		this.acceleration = 0;
+		this.maxAcceleration = 5;
+		this.maxSpeed = 20;
+		this.velocity = 0;
+		this.dampen = 0.97;
+		this.speed = 8;
+		this.touchSpeed = 8;
+		this.scrollPos = 0;
+		this.velocityThreshold = 1;
+		this.snapToTarget = false;
+		this.mouseDown = false;
+		this.lastDelta = 0;
+		//boxy.addEventListener(MOUSE_WHEEL_EVENT, event => {
+		//	event.preventDefault();
+		//	this.accelerate(Math.sign(event.deltaY) * this.speed);
+		//});
+		boxy.addEventListener( TOUCH_MOVE, event => {
+			//event.preventDefault();
+			let delta = this.lastDelta + event.targetTouches[ 0 ].clientX;
+			this.accelerate( Math.sign( delta ) * this.touchSpeed );
+			this.lastDelta = - event.targetTouches[ 0 ].clientX;
+		})
+		boxy.addEventListener( TOUCH_END, event => {
+			this.lastDelta = 0;
+		})
+		
+		boxy.addEventListener( MOUSE_DOWN, event => {
+			this.mouseDown = true;
+		})
+		boxy.addEventListener( MOUSE_MOVE, event => {
+			if( this.mouseDown ){
+				let delta = this.lastDelta + event.clientX;
+				this.accelerate( Math.sign( delta ) * this.touchSpeed * 0.4 );
+				this.lastDelta = - event.clientX;
+			}
+		})
+		boxy.addEventListener( MOUSE_UP, event => {
+			this.lastDelta = 0;
+			this.mouseDown = false;
+		})
+	}
+	accelerate( amount ) {
+		if ( this.acceleration < this.maxAcceleration ) {
+			this.acceleration += amount;
+		}
+	}
+	update() {
+		this.velocity += this.acceleration;
+		if ( Math.abs( this.velocity ) > this.velocityThreshold ) {
+			this.velocity *= this.dampen;
+			this.scrollPos += this.velocity;
+		} else {
+			this.velocity = 0;
+		}
+		if ( Math.abs( this.velocity ) > this.maxSpeed ) {
+			this.velocity = Math.sign( this.velocity ) * this.maxSpeed;
+		}
+		this.acceleration = 0;
+	}
+	snap ( snapTarget, dampenThreshold = 100, velocityThresholdOffset = 1.5 ) {
+		if ( Math.abs( snapTarget - this.scrollPos ) < dampenThreshold ) {
+			this.velocity *= this.dampen;
+		}
+		if ( Math.abs( this.velocity ) < this.velocityThreshold + velocityThresholdOffset ) {
+			this.scrollPos += ( snapTarget - this.scrollPos ) * 0.1;
+		}
+	}
+	project ( steps = 1 ) {
+		if ( steps === 1 )	return this.scrollPos + this.velocity * this.dampen
+		var scrollPos = this.scrollPos;
+		var velocity = this.velocity;
+		for ( var i = 0; i < steps; i++ ) {
+				velocity *= this.dampen;
+				scrollPos += velocity;
+		}
+		return scrollPos;
+	}
+}
+
+var mouseWheel = new ScrollPos();
+const scrollPerImage = 500;
+const KEYBOARD_ACCELERATION = 25;
+
+window.addEventListener( "keydown", (e) => {
+	switch( e.keyCode ) {
+		case 33:
+		case 37:
+			// left
+			mouseWheel.acceleration -= KEYBOARD_ACCELERATION;
+			mouseWheel.update()
+			break;
+		case 34:
+		case 39:
+			// right
+			mouseWheel.acceleration += KEYBOARD_ACCELERATION;
+			mouseWheel.update()
+			break;
+	}
+})
+
+mouseWheel.acceleration += KEYBOARD_ACCELERATION;
+mouseWheel.update()
+
+function autoMove () {
+	var positions = ( mouseWheel.scrollPos / scrollPerImage ^ 0 ) + 1;
+	if ( positions == imageEl.length ) {
+		mouseWheel.scrollPos = 0;
+		mouseWheel.acceleration += KEYBOARD_ACCELERATION;
+		mouseWheel.update()
+	} else {
+		mouseWheel.acceleration += KEYBOARD_ACCELERATION;
+		mouseWheel.update()
+	}
+};
+
+let timerId;
+
+function autoMoveOn() {
+	timerId = setInterval(autoMove, NEXT_SLIDE);
+};
+
+function autoMoveOff() {
+	clearTimeout(timerId);
+};
+
+autoMoveOn();
+ 
+boxy.addEventListener("mouseleave", autoMoveOn);
+boxy.addEventListener("mouseenter", autoMoveOff);
+
+function makeThreeTexture( image ) {
+	let tex = new THREE.Texture( image );
+	tex.needsUpdate = true;
+	return tex;
+}
+
+function loadImages() {
+	let arr = [];
+	for ( var i = 0; i < imageEl.length; i++ ) {
+		arr.push(	makeThreeTexture( imageEl[ i ] ) );
+	}
+	return arr;
+}
+
+const renderer = new THREE.WebGLRenderer( { antialias: false } );
+boxy.appendChild( renderer.domElement );
+ 
+function init( textures ) {
+
+	let color = new THREE.Color( "rgb(255, 255, 255)" );
+	let scene = new THREE.Scene();
+	let camera = new THREE.PerspectiveCamera(
+		25,
+		boxy.innerWidth / boxy.innerWidth,
+		1,
+		1000
+	);
+	camera.position.set( 0, 0, 10 );
+	
+	scene.background = color;
+	
+	scene.add( camera );
+
+	let geometry = new THREE.PlaneGeometry( 4.75, 7, 4, 4 );
+
+	let material = new THREE.ShaderMaterial( {
+		uniforms: {
+			time: { value: 1.0 },
+			blend: { value: 0.0 },
+			tex1: { type: "t", value: textures[ 1 ] },
+			tex2: { type: "t", value: textures[ 0 ] }
+		},
+		vertexShader: document.getElementById( "vertexShader" ).textContent,
+		fragmentShader: document.getElementById( "fragmentShader" ).textContent,
+	});
+
+	let mesh = new THREE.Mesh( geometry, material );
+
+	scene.add( mesh );
+
+	var tex1 = textures[ 1 ];
+	var tex2 = textures[ 0 ];
+	
+	function updateTexture( pos ) {
+		if ( tex2 != textures[ Math.floor( pos / scrollPerImage ) ] ) {
+			tex2 = textures[ Math.floor( pos / scrollPerImage ) ]
+			material.uniforms.tex2.value = tex2;
+		}
+		if ( tex1 != textures[ Math.floor( pos / scrollPerImage ) + 1 ] ) {
+			tex1 = textures[ Math.floor( pos / scrollPerImage ) + 1 ]
+			material.uniforms.tex1.value = tex1;
+		}
+	}
+	
+	function draw() {
+		requestAnimationFrame( draw );
+		mouseWheel.update();
+		let	scrollTarget = ( Math.floor( ( mouseWheel.scrollPos + scrollPerImage * 0.5 ) / 
+			scrollPerImage ) ) * scrollPerImage;
+		mouseWheel.snap( scrollTarget );
+		
+		let { scrollPos, velocity } = mouseWheel;
+		
+		if ( scrollPos < 0 ) {
+			scrollPos = 0;
+		}
+		if ( scrollPos > scrollPerImage * textures.length - 1 ) {
+			scrollPos = scrollPerImage * textures.length - 1;
+		}
+		
+		if ( scrollPos > 0 && scrollPos < scrollPerImage * textures.length - 1 ) {
+			updateTexture( scrollPos );
+			material.uniforms.blend.value =
+				( scrollPos % scrollPerImage ) / scrollPerImage;
+		}
+		
+		mouseWheel.scrollPos = scrollPos;
+
+		material.uniforms.time.value += 0.1;
+
+		renderer.render( scene, camera );
+	}
+
+	function resize() {
+	
+		camera.aspect =  boxy.clientWidth / boxy.clientWidth;
+		camera.updateProjectionMatrix();
+		renderer.setPixelRatio( boxy.devicePixelRatio );
+		renderer.setSize( boxy.clientWidth / 2 - 60, boxy.clientWidth / 2 - 60 );
+	}
+
+ 	window.addEventListener( "resize", resize );
+	
+ 	resize();
+	draw();
+	
+}
+
+init( loadImages() );
+
+};
+
+});
+</script>
+
+</body>
+</html>
