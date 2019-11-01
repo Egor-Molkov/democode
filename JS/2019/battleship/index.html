@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html class="w-100 h-100">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="author" content="Egor" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="theme-color" content="#fff" />
+
+	<title>BattleShip</title>
+
+	<meta name="description" content="морской бой" />
+	<meta name="keywords" content="сражения караблики море" />
+	<!--<meta name="robots" content="noindex">-->
+	
+	<link href="css/bootstrap.min.css" rel="stylesheet"> 
+
+	<style>
+		body { font-family: 'Roboto', sans-serif; background: #fff; color: #333; }
+		canvas { cursor: pointer; }
+		#outputInfo { max-height: 80vh; }
+		#infoName { overflow-y: auto; }
+	</style>
+
+	<link rel="icon" href="favicon.ico">
+
+	<script src="vendors/localforage.min.js"></script>
+	<script src="vendors/easeljs-0.8.2.min.js"></script>
+	<script src="vendors/jquery-3.1.1.min.js"></script>
+
+	<script src="js/utils.js"></script>
+	<script src="js/libs-game.js"></script>
+	<script src="js/battleship.js" ></script>
+<!--  -->
+</head>
+
+<body class="d-flex flex-column justify-content-between" style="min-height: 100%;">
+
+	<header class="w-100 d-flex align-items-center bg-light justify-content-between" style="min-height: 5rem;">
+		<h1 class="ml-3">Морской бой</h1>
+		<div class="h2 mr-3" id="infoScore"></div>
+	</header>
+
+	<section class="w-100 mb-auto d-flex flex-row flex-nowrap" id="sectionForm">
+		<form class="m-3 form-inline d-flex flex-row flex-wrap" id="myName">
+			<div class="form-group">
+				<label for="name">Мое имя </label>
+				<input type="text" class="mx-3 form-control" id="name" placeholder="Инкогнито" autofocus="">
+			</div>
+			<button type="submit" class="btn btn-primary">Далее</button>
+		</form>
+	</section>
+
+	<section class="w-100 h-100 mb-auto no-gutters flex-row flex-nowrap d-none" id="sectionGame">
+		<div 
+			class="d-flex flex-row flex-wrap col-lg-8 col-8" 
+			id="canvasArea" 
+			style="min-height:432px">
+		</div>
+
+		<div id="outputInfo" class="col-lg-4 col-4 d-flex flex-column">
+			<div class="my-3 mr-3" id="infoName"></div>
+			<div class="my-3 mr-3" id="infoControl">
+				<button class="btn btn-dark btn-block mb-3" id="setShipsInFild">Расставить вручную</button>
+				<button class="btn btn-dark btn-block" id="setShipsInFildRand">Расставить cлучайно</button>
+			</div>
+		</div>
+	</section>
+
+	<section class="w-100 d-flex align-items-center justify-content-between bg-light" style="min-height: 5rem;">
+		<div class="mr-3" id="infoAddon">
+			
+		</div>
+		<span class="mr-3"><i>Егор 2019г</i></span>
+	</section>
+
+<script>
+
+$( document ).ready( function() {
+	let form = $( '#myName' );
+	let name = form.find( '#name' ).val();
+
+	form.on( 'submit', function ( e ) {
+		if ( e.stopPropagation ) { e.stopPropagation( ); } else { e.cancelBubble = false };
+		if ( e.preventDefault ) { e.preventDefault( ); } else { e.returnValue = false };
+
+		if ( name != "" ) { localforage.setItem( 'name', name ) } 
+		else { localforage.setItem( 'name', 'Инкогнито' ) };
+
+		$( '#sectionForm' ).addClass( 'd-none' ).removeClass( 'd-flex' );
+		$( '#sectionGame' ).removeClass( 'd-none' ).addClass( 'd-flex' );
+
+		setTimeout( gameStart(), 0);
+	});
+
+});
+</script>
+</body>
+</html>
