@@ -220,7 +220,7 @@ function gameStart () {// 3 + 3 + 4 + 5 + 6 + 5 + 4 + 4 + 4 + 3 + 6 + 5 ( 52 )
 	// Добавим полезные кнопки.
 	$('#infoAddon').html(`
 		<button class="btn btn-light ml-3" id="showFildComp">Режим читера</button>
-		<button class="btn btn-light ml-3" id="setSound">Озвучка</button>
+		<!--<button class="btn btn-light ml-3" id="setSound">Озвучка</button>-->
 	`);
 
 	// Нарисуем сетку с осями
@@ -684,16 +684,26 @@ function gameStart () {// 3 + 3 + 4 + 5 + 6 + 5 + 4 + 4 + 4 + 3 + 6 + 5 ( 52 )
 
 ////////////////////////////////////////////////////////////////////////////
 
+	// Cинтез речи, увы в Хроме не работает, отключил ( в firefox все ок )
 	function sayThis ( text, speed, callback ) {
 		this.text = text;
 		this.speed = speed;
-		let synth = window.speechSynthesis;
-		let utterThis = new SpeechSynthesisUtterance( text );
-		utterThis.lang = 'ru-RU';
-		utterThis.pitch = 1;
-		utterThis.rate = speed;
-		synth.speak( utterThis );
-		utterThis.onend = function(event) {
+
+		if ( 'speechSynthesis' in window ) {
+			let synth = window.speechSynthesis;
+			let utterThis = new SpeechSynthesisUtterance();
+			utterThis.lang = 'ru-RU';
+			utterThis.pitch = 1;
+			utterThis.rate = speed;
+			utterThis.text = text;
+			synth.speak( utterThis );
+			utterThis.onend = function(event) {
+				if ( callback ) {
+					callback ();
+				}
+			}
+		} else {
+			console.log('Synthes not support!')
 			if ( callback ) {
 				callback ();
 			}
