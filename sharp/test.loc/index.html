@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html class="w-100 h-100" lang="ru-RU">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="author" content="Egor" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="theme-color" content="#fff" />
+
+     <meta name="description" content="app spa">
+     <meta name="keywords" content="продукты компании">
+     <meta name="robots" content="noindex">
+
+	<title>Test api</title>
+	
+	<link rel="icon" href="favicon.ico">
+	<link rel="preload" href="css/font/fontawesome-webfont.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	
+	<style>
+		body { font-family: 'Roboto', sans-serif; background-color:#232323; margin: 0; }
+		.d-none{ display: none; }
+		#preload{
+			background: linear-gradient(to right, #357895, #357895 70%, #232323);
+   			animation: upload 1s ease-in infinite alternate both;
+		}
+		@keyframes upload {
+    			0% { width:0; }
+    			100% { width:100%; }
+   		}
+   		
+	</style>
+	
+	<script defer src="js/preload.js"></script>
+	<script defer src="js/init.js"></script>
+<!--  -->
+</head>
+
+<body class="d-flex flex-column justify-content-between w-100 h-100" style="min-height: 100%;">
+
+	<div class="" id="preload" style="min-height:6px;"></div>
+	
+	<div class="d-none m-auto" id="login">
+
+	</div>
+	
+	<div class="flex-column justify-content-between w-100 h-100 d-none" id="app">
+
+		<header	class="d-flex w-100 align-items-center bg-dark justify-content-between " 
+				style="min-height: 5rem;">
+			<h1 class="ml-3 h2">Тестовый клиент</h1>
+			<button	class="navbar-toggler mr-2" type="button" data-toggle="collapse" 
+					data-target="#menu" aria-controls="menu" aria-expanded="false" 
+					aria-label="Toggle navigation">
+				<span class="fa fa-lg fa-bars text-light"></span>
+			</button>
+		</header>
+
+		<section	class="d-flex flex-row flex-nowrap w-100 overflow-hidden" 
+	 			id="sectionContent" style="min-height:calc(100% - 10rem);">
+
+			<div class="collapse col-lg-3 col-md-4 col-sm-6 col-12 p-0" style="min-height:100%" id="menu">
+				<div class="bg-dark p-4 h-100" style="min-height:100%;">
+			  		<div class="nav flex-column nav-pills" id="pills-tab" role="tablist" aria-orientation="vertical">
+						
+						<a class="nav-link" id="company-tab" 
+							data-toggle="pill" href="#company" role="tab" 
+							aria-controls="company" aria-selected="false">
+							<span class="fa fa-briefcase mr-3"></span><span>Компании</span>
+						</a>
+							
+						<a class="nav-link" id="product-tab" 
+							data-toggle="pill" href="#product" role="tab" 
+							aria-controls="product" aria-selected="false">
+							<span class="fa fa-shopping-bag mr-3"></span><span>Товары</span>
+						</a>
+							
+						<a class="nav-link" id="account-tab" 
+							data-toggle="pill" href="#account" role="tab" 
+							aria-controls="account" aria-selected="false">
+							<span class="fa fa-cogs mr-3"></span><span>Аккаунт</span>
+						</a>
+							
+						<p class="nav-link" style="cursor:pointer" id="logout">
+							<span class="fa fa-sign-out mr-3"></span><span>Выход</span>
+						</p>
+							
+					</div>
+				</div>
+
+			</div>
+
+			<div class="p-3 w-100 flex-shrink-0" id="content">
+				<div class="tab-content" id="v-pills-tabContent">
+				
+					<div class="tab-pane fade" id="company" 
+						role="tabpanel" aria-labelledby="company-tab">
+						
+					</div>
+					
+					<div class="tab-pane fade" id="product" 
+						role="tabpanel" aria-labelledby="product-tab">
+					
+					</div>
+					
+					<div class="tab-pane fade" id="account" 
+						role="tabpanel" aria-labelledby="account-tab">
+						
+					</div>
+					
+				</div>
+			</div>
+
+		</section>
+
+		<footer	class="d-flex w-100 align-items-center justify-content-between bg-dark" 
+				style="min-height: 5rem;">
+			<div class="mr-3" id="infoAddon">
+			
+			</div>
+			<span class="mr-3 text-muted"><i>Егор 2020г</i></span>
+		</footer>
+	</div>
+
+</body>
+</html>
