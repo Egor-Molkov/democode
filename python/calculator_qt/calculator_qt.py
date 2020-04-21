@@ -329,7 +329,7 @@ class Window( QWidget ):
             for i in range( len( operation )):
                 stek.append( operation[i] )
                 stek.append( operand[i+1] )  
-            #print( stek )
+            print( stek )
 
             # Просуммируем стек
             try:
@@ -354,24 +354,33 @@ class Window( QWidget ):
                         if stek[i+1] == "": continue
                         acc = multiplication( stek[i-1], stek[i+1] )
                         #print("*", str( acc ))
+                        stek[i] = acc
+                        stek.pop( i+1 )
+                        stek.pop( i-1 )
                     elif item == "/":
                         i = stek.index( "/" )
                         if stek[i+1] == "": continue
                         acc = subdivision( stek[i-1], stek[i+1] )
                         #print("/", str( acc ))
+                        stek[i] = acc
+                        stek.pop( i+1 )
+                        stek.pop( i-1 )
                     elif item == "*-":
                         i = stek.index( "*-" )
                         if stek[i+1] == "": continue
                         acc = multiplication( stek[i-1], "-" + stek[i+1] )
                         #print("*-", str( acc ))
+                        stek[i] = acc
+                        stek.pop( i+1 )
+                        stek.pop( i-1 )
                     elif item == "/-":
                         i = stek.index( "/-" )
                         if stek[i+1] == "": continue
                         acc = subdivision( stek[i-1], "-" + stek[i+1] )
                         #print("/-", str( acc ))
-                    stek[i] = acc
-                    stek.pop( i+1 )
-                    stek.pop( i-1 )   
+                        stek[i] = acc
+                        stek.pop( i+1 )
+                        stek.pop( i-1 )
                 # Вторая интерация приоритет: +, -
                 for item in operation:
                     if item == "+":
@@ -379,14 +388,17 @@ class Window( QWidget ):
                         if stek[i+1] == "": continue
                         acc = summation( stek[i-1], stek[i+1] )
                         #print("+", str( acc ))
+                        stek[i] = acc
+                        stek.pop( i+1 )
+                        stek.pop( i-1 )
                     elif item == "-":
                         i = stek.index( "-" )
                         if stek[i+1] == "": continue
                         acc = subtraction( stek[i-1], stek[i+1] )
                         #print("-", str( acc ))                    
-                    stek[i] = acc
-                    stek.pop( i+1 )
-                    stek.pop( i-1 )
+                        stek[i] = acc
+                        stek.pop( i+1 )
+                        stek.pop( i-1 )
             except ZeroDivisionError:
                 self.error_.setText( "Попытка деления числа на ноль" )
                 acc="Error"
