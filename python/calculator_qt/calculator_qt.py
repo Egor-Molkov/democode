@@ -1,8 +1,8 @@
 
 import sys
-import re
+
 from decimal import Decimal as dec
-from decimal import getcontext as context_
+from calc_core import (cleanCommand, cutBracets, getSumm)
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QGridLayout,
     QLabel, QLineEdit, QTextEdit, QPushButton, QApplication)
@@ -64,6 +64,8 @@ class Window( QWidget ):
 
         # Переменная для хранения очищенной от мусора командной строки
         self.cleanCommand = ""
+        # Переменная для хранения актуальной командной строки
+        self.textSelf = ""
 
         # Cтрока состояния памяти и информации
         memoryLabel = QLabel( "memory:" )
@@ -103,58 +105,60 @@ class Window( QWidget ):
             # Обработка событий
             button.clicked.connect( self.buttonClicked )
         
+        # Отлавливаем ввод скобок с клавиатуры
+        self.command.textChanged.connect( self.textChangedEvent )
+        # Отлавливаем окончание ввода (ентер)
+        self.command.returnPressed.connect( self.textReturnEvent )
+
         self.setGeometry( 300,  150, 400, 400 )
         self.setWindowTitle( 'Простой калькулятор' )
         self.show()
 
+    def keyPressEvent(self, e):
+        """Метод вызывается для перехвата события нажатия ESC. """
+
+        if e.key() == Qt.Key_Escape:
+            self.close()
+
+    def textChangedEvent( self, str_ ):
+        """Метод вызывается для перехвата события ввода '(' и ')'. """
+
+        char = str_.replace( self.textSelf, "" )
+        if char == '(' or char == ')':
+            # Предупреждение, если не закрыты скобки
+            cleanBracetsInCommand = cutBracets( self.command.text() )
+            if cleanBracetsInCommand != '':
+                self.error_.setText( 'Внимание: Не закрыты скобки' )
+            else:
+                self.error_.setText( '' )
+        self.textSelf = str_
+
+    def textReturnEvent( self ):
+        """Метод вызывается для перехвата события нажатия Enter. """
+
+        # Что от нас хотят 
+        self.cleanCommand = cleanCommand( self.command.text() )
+        # Посчитаем
+        result = getSumm( self.cleanCommand )
+        if result == 'Error 1/0':
+            self.error_.setText( "Деление на ноль" )
+        if result == 'Error inf':
+            self.error_.setText( "Неизвестное исключение" )
+        history = self.history.toPlainText()
+        if history != "":
+            history += " ... "
+        # Добавим в историю
+        history += self.cleanCommand + " = " + result
+        self.history.setHtml( history )
+        # Прокрутим историю в конец
+        cursor = self.history.textCursor()
+        cursor.setPosition( len( history ) )
+        self.history.setTextCursor( cursor )
+        return
+    
+
     def buttonClicked( self ):
-        """Метод вызывается для обработки событий. """
-
-        def cleanCommand( str_ ):
-            """ Метод очищает строку от мусора. 
-
-                Заменяет запятую, точкой и оставляет в строке только -
-                0-9 . + - * / ( )
-
-                cleanCommand("(не2+2хочу.5)учиться*2хочу жениться")
-                - "(2+2.5)*2"
-            """
-            str_ = str_.replace( ",", "." )
-            pattern = re.compile( "[^0-9.+-/*\(\)]" )
-            return re.sub( pattern, "", str_ )
-        
-        def cleanBracets( str_ ):
-            """ Метод проверит все ли впорядке со скобками. 
-
-                не влияет на расчет, просто предупреждает,
-                например (2+2)2) посчитает, как (4)2) -> 42
-                cleanBracets(")(")
-                - error_("Проблемма со скобкими")
-                cleanBracets("(()())")
-                - void (true)
-            """
-            pattern = re.compile( "[^\(\)]" )
-            bracetsInCommand = re.sub( pattern, "", str_ )
-            pattern = re.compile( "\(\)" )
-
-            cleanBracetsInCommand = ""
-            def clean( str_ ):
-                """ Метод вернет пустую строку, если все в порядке
-                    иначе вернет лишние скобки
-                """
-                global cleanBracetsInCommand 
-                this = str_
-                if len( str_ ) > 0:
-                    str_ = re.sub( pattern, "", str_ )
-                if this != str_:
-                    clean( str_ )
-                else:
-                    cleanBracetsInCommand = this
-                return cleanBracetsInCommand
-            cleanBracetsInCommand = clean( bracetsInCommand )
-            if cleanBracetsInCommand != "":
-                self.error_.setText( "Внимание: Скобки!" )
-            return
+        """Метод вызывается для обработки нажитий кнопок. """
 
         # Сбросим ошибки
         self.error_.setText( "" )
@@ -165,10 +169,10 @@ class Window( QWidget ):
         # Посчитать и добавить результат в память
         if char == "m+":
             self.cleanCommand = cleanCommand( self.command.text() )
-            cleanBracets( self.cleanCommand )
+            result = getSumm( self.cleanCommand )
             memory = dec( self.memory.text() )
             try:
-                memory += dec( self.getResult() )
+                memory += dec( result )
             except:
                 pass
             self.memory.setText( str( memory ))
@@ -177,10 +181,10 @@ class Window( QWidget ):
         # Посчитать и вычесть результат из памяти
         if char == "m-":
             self.cleanCommand = cleanCommand( self.command.text() )
-            cleanBracets( self.cleanCommand )
+            result = getSumm( self.cleanCommand )
             memory = dec( self.memory.text() )
             try:
-                memory -= dec( self.getResult() )
+                memory -= dec( result )
             except:
                 pass
             self.memory.setText( str( memory ))
@@ -201,7 +205,7 @@ class Window( QWidget ):
             self.history.setHtml( "" )
             return
 
-        # Удалить один символ из командной строки
+        # Удалить последний символ из командной строки
         if char == "<-":
             command = self.command.text()
             command = command[ :-1 ]
@@ -213,19 +217,9 @@ class Window( QWidget ):
             self.command.setText( "" )
             return
 
-        # Посчитать результат (очищенной командной строки), записать в историю
-        # и перемотать фрейм с историей в конец
+        # Посчитать результат
         if char == "=":
-            self.cleanCommand = cleanCommand( self.command.text() )
-            cleanBracets( self.cleanCommand )
-            history = self.history.toPlainText()
-            if history != "":
-                history += " ... "
-            history += self.cleanCommand + " = " + self.getResult()
-            self.history.setHtml( history )
-            cursor = self.history.textCursor()
-            cursor.setPosition( len( history ) )
-            self.history.setTextCursor( cursor )
+            self.textReturnEvent()
             return
 
         # Иначе добавить символ к командной строке
@@ -233,212 +227,13 @@ class Window( QWidget ):
         command += char
         self.command.setText( command )
 
-    def getResult( self ):
-        """ Метод распарсит командную строку и посчитает результат.
+        # Предупреждение, если не закрыты скобки
+        cleanBracetsInCommand = cutBracets( self.command.text() )
+        if cleanBracetsInCommand != '':
+            self.error_.setText( "Внимание: Не закрыты скобки" )
 
-            result = self.getResult()
-            - command
-            - "(2+2)*2"
-            - result
-            - decimal( 8 )
-        """
-        
-        #context_().prec = 60
-
-        def splitGroup( str_ ):
-            """ Метод берет строку и разбивает на группы (). 
-
-                splitGroup("(2+2)*2")
-                - ['', '(2+2)', '*2']
-            """
-            pattern = re.compile( "(\([0-9.+-/*]*\))" )
-            return re.split( pattern, str_, re.M )
-
-        def joinGroup( arr_ ):
-            """ Метод соберет строку из групп. 
-
-                joinGroup(['', '4', '*2'])
-                - "4*2"
-            """
-            return "".join( arr_ )
-
-        def summInString( str_ ):
-            """ Метод посчитает сумму в строке. 
-
-                summInString("(2+2)")
-                - str( decimal( 4 )) - "4"
-            """
-            # Здесь без скобок
-            pattern = re.compile( "[^0-9.+-/*]" )
-            str_ = re.sub( pattern, "", str_ )
-
-            # Массив для операций: + - * /
-            pattern = re.compile( "[0-9.]" )
-            operation = "".join( str_ )
-            operation = re.sub( pattern, " ", operation )
-            operation = operation.split()
-            """ Операции могут быть длинные, например:
-                -- это +
-                --- это -
-                +--- это -
-                Исключения:
-                /- это / на отрицательное число
-                *- это * на отрицательное число
-                Непонятные случаи:
-                ***///**/ это по первому * то есть умножить
-            """
-            for i in range( len( operation )):
-                item = operation[i]
-                if len( item ) > 1:
-                    count = 0
-                    for char in item:
-                        if char == "-": 
-                            count += 1
-                        if char == "*":
-                            if operation[i] == "*-": continue
-                            operation[i] = "*"
-                            break
-                        if char == "/":
-                            if operation[i] == "/-": continue
-                            operation[i] = "/"
-                            break
-                    if operation[i] =="*" or\
-                       operation[i] =="/" or\
-                       operation[i] =="*-" or\
-                       operation[i] =="/-":
-                        pass
-                    else:
-                        if count % 2 == 1:
-                            operation[i] = "-"
-                        else:
-                            operation[i] = "+"
-            #print( operation )
-
-            # Массив для чисел (операндов): 0-9 .
-            pattern = re.compile( "[-+/*]+" )
-            operand = "".join( str_ )
-            operand = re.sub( pattern, "|", operand )
-            operand = operand.split( "|" )
-            #print( operand )
-            
-            # Общий стек операнд + операция
-            stek = []
-            if operand[0] == "":
-                operand[0] = "0"
-            stek.append( operand[0] )
-            for i in range( len( operation )):
-                stek.append( operation[i] )
-                stek.append( operand[i+1] )  
-            print( stek )
-
-            # Просуммируем стек
-            try:
-                def summation( one, two ):
-                    return dec( one ) + dec( two )
-                def subtraction( one, two ):
-                    return dec( one ) - dec( two )
-                def multiplication( one, two ):
-                    return dec( one ) * dec( two )
-                def subdivision( one, two ):
-                    return dec( one ) / dec( two )
-                
-                acc = dec( operand[0] )
-                # Первая интерация приоритет: *, /, /(-), *(-)
-                for item in operation:
-                    if item == "+":
-                        continue
-                    elif item == "-":
-                        continue
-                    elif item == "*":
-                        i = stek.index( "*" )
-                        if stek[i+1] == "": continue
-                        acc = multiplication( stek[i-1], stek[i+1] )
-                        #print("*", str( acc ))
-                        stek[i] = acc
-                        stek.pop( i+1 )
-                        stek.pop( i-1 )
-                    elif item == "/":
-                        i = stek.index( "/" )
-                        if stek[i+1] == "": continue
-                        acc = subdivision( stek[i-1], stek[i+1] )
-                        #print("/", str( acc ))
-                        stek[i] = acc
-                        stek.pop( i+1 )
-                        stek.pop( i-1 )
-                    elif item == "*-":
-                        i = stek.index( "*-" )
-                        if stek[i+1] == "": continue
-                        acc = multiplication( stek[i-1], "-" + stek[i+1] )
-                        #print("*-", str( acc ))
-                        stek[i] = acc
-                        stek.pop( i+1 )
-                        stek.pop( i-1 )
-                    elif item == "/-":
-                        i = stek.index( "/-" )
-                        if stek[i+1] == "": continue
-                        acc = subdivision( stek[i-1], "-" + stek[i+1] )
-                        #print("/-", str( acc ))
-                        stek[i] = acc
-                        stek.pop( i+1 )
-                        stek.pop( i-1 )
-                # Вторая интерация приоритет: +, -
-                for item in operation:
-                    if item == "+":
-                        i = stek.index( "+" )
-                        if stek[i+1] == "": continue
-                        acc = summation( stek[i-1], stek[i+1] )
-                        #print("+", str( acc ))
-                        stek[i] = acc
-                        stek.pop( i+1 )
-                        stek.pop( i-1 )
-                    elif item == "-":
-                        i = stek.index( "-" )
-                        if stek[i+1] == "": continue
-                        acc = subtraction( stek[i-1], stek[i+1] )
-                        #print("-", str( acc ))                    
-                        stek[i] = acc
-                        stek.pop( i+1 )
-                        stek.pop( i-1 )
-            except ZeroDivisionError:
-                self.error_.setText( "Попытка деления числа на ноль" )
-                acc="Error"
-            except Exception as e:
-                #print(e)
-                self.error_.setText( "Неизвесное исключение" )
-                acc="Error"
-            return str( acc )
-
-        def summGroup( arr_ ):
-            """ Метод посчитает сумму для отдельных групп. 
-
-                resultGroup(['', '(2+2)', '*2'])
-                - "['', '4', '*2']"
-            """            
-            pattern = re.compile( "^\(.*\)$" )
-            for i in range( len( arr_ )):
-                if re.search( pattern, arr_[i] ):
-                    arr_[i] = summInString( arr_[i] )
-            return arr_
-
-        summ = ""
-        def getSumm( str_ ):
-            """ Метод вызывает методы выше что-бы посчитать результат. 
-                TODO Рекурсивно, значение в глобал
-            """ 
-            global summ
-            arr_ = splitGroup( str_ )
-            if len( arr_ ) > 1:
-                arr_ = summGroup( arr_ )
-                getSumm( joinGroup( arr_ ))
-            else:
-                summ = str( summInString( arr_[0] ))
-            return summ
-
-        summ = getSumm( self.cleanCommand )
-        return summ
 
 if __name__ == '__main__':
-
     app = QApplication( sys.argv )
     ex = Window()
     sys.exit( app.exec_() )
