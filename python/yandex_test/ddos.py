@@ -16,36 +16,35 @@ print( 'Время генерации массива, сек.', time.time()-star
 
 point = time.time()
 
-ddos = dict()
+ddos = collections.Counter()
 page = int( n / m )
 end = n%m
 
 # Прочитает 2 страницы записей, первую страницу поместит 
-# в словарь left_block (ключь-ip, значение-счетчик) что-бы не считать два раза,
-# также поместит основную страницу в список left_block_arr, что-бы знать порядок ключей
+# в словарь left_block_counter (ключь-ip, значение-счетчик) что-бы не считать два раза,
+# также поместит основную страницу в список left_block, что-бы знать порядок ключей
 # вторую страницу поместит в список right_block по ключу - ip, 
-# если страницы кончились, поместит оставшиеся записи 
-# в список end_block по ключу - ip
 # фактически считываем массив по одной странице, 
-# но итоговая сложность вычисления O( 2n ), по памяти page*3
+# но итоговая сложность вычисления O( ~1.5n ), по памяти page*3
 def readPage( seek, ends=0 ):
-    left_block = dict()
-    left_block_arr = list()
-    right_block = list()
-    end_block = list()
-    for item in range( m ):
-        left_block_arr.append( arr_[ seek + item ])
-        if left_block.get( arr_[ seek + item ]) == None:
-            left_block[ arr_[ seek + item ]] = 0
-        else:
-            left_block[ arr_[ seek + item ]] += 1
-        if  page - seek * m != 0 and ends == 0:
-            right_block.append( arr_[ seek + m + item ])
+    start = seek
+    end = start + m
+
+    start_r = end
+    end_r = end + m
+
+    right_block, end_block = 0, 0
+
+    left_block = list( arr_[ start:end ])
+    left_block_counter = collections.Counter( left_block )
+
+    if  page - seek * m != 0 and ends == 0:
+        right_block = list( arr_[ start_r:end_r ])
     if ends > 0:
-        for item in range( ends ):
-            right_block.append( arr_[ seek + m + item ])
-        end_block = collections.Counter( right_block )
-    return left_block, left_block_arr, right_block, end_block
+        end_e = end + ends
+        right_block = list( arr_[ start_r:end_e ])
+
+    return left_block_counter, left_block, right_block
 
 # Проверит нет ли атаки в основном словаре, если есть добавит в словарь обнаруженных
 # Возьмет ip из второго списка и проверит не переполниться ли в первом, если добавить
@@ -58,50 +57,36 @@ def readPage( seek, ends=0 ):
 # 0.0.0.0 - 2 упоминания в основном словаре (запомним как ddos с этим ip)
 # 0.0.0.1 - 1 из основного, 1 из списка, 2 упоминания на глубину 3 элемента
 # (т.е тоже ddos, запомним и этот ip)
-def detector( left_block, left_block_arr, right_block, end_block ):
-    for item, val in left_block.items():
-        if val >= k - 1:
-            if ddos.get( item ) == None:
-                ddos[ item ] = 1
-            else:
-                ddos[ item ] += 1
-    for i in range( len( right_block )):
-        key = right_block[ i ]
-        val = left_block.get( item )
-        if val != None and val >= k - 2:
-            left_block_arr = left_block_arr[ i+1: ]
-            left_block_arr.append( key )
-            counter = collections.Counter( left_block_arr )
-            keys, val = counter.most_common(1)[0]
-            if val >= k:
-                if ddos.get( key ) == None:
-                    ddos[ key ] = 1
-                else:
-                    ddos[ key ] += 1
-    if len( end_block ) > 0:
-        for key, val in end_block.items():
-            if val >= k - 1:
-                if ddos.get( key ) == None:
-                    ddos[ key ] = 1
-                else:
-                    ddos[ key ] += 1
+def detector( left_block_counter, left_block, right_block ):
+    #print('iter', left_block, right_block)
+    for item, val in left_block_counter.items():
+        if val >= k:
+            ddos.update( [item] )
+            
+    for index in range( len( right_block )):
+        key = right_block[ index ]
+        val = left_block_counter.get( key, 0 )
+        # Подозрение на ддос ключ из правого блока + счетчик
+        if val >= k-1:
+            # Посчитаем ключи в срезе
+            temp_counter = collections.Counter( left_block[ index: ])
+            temp_counter.update( [key] )
+            # И правда ддос
+            for item, val in temp_counter.items():
+                if val >= k:
+                    ddos.update( [item] )
 
 '''
 worki = cProfile.Profile()
 tracemalloc.start()
 worki.enable()
 '''
-for i in range( page - 1 ):
+for i in range( page ):
     seek = i * m
     ends = 0
-    l, la, r, c = readPage( seek, ends )
-    detector( l, la, r, c ) 
-    #print('page', i, 'seek', seek)
-if end > 0:
-    seek = ( page - 1 ) * m
-    l, la, r, c = readPage( seek, end )
-    detector( l, la, r, c )
-    #print('seek', seek, 'end', end)
+    if i == page: ends = end
+    lc, l, r = readPage( seek, ends )
+    detector( lc, l, r )
 '''
 snapshot = tracemalloc.take_snapshot()
 top_stats = snapshot.statistics('lineno', True)

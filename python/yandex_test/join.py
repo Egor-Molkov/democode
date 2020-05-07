@@ -38,7 +38,7 @@ def Join(t1, t2, metods='INNER'):
 
     t3 = collections.OrderedDict( t1 )
     t3.update( t2 )
-    t3 = collections.OrderedDict( sorted( t3.items(), key=lambda acc: acc[ 1 ].a ))
+    t3 = collections.OrderedDict( sorted( t3.items(), key=lambda acc: acc[1].a ))
     t3 = list( t3.values() )
 
     a1 = t3[0].a

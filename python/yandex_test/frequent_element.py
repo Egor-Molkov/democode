@@ -18,9 +18,7 @@ worki = cProfile.Profile()
 worki.enable()
 tracemalloc.start()
 '''
-col_ = collections.Counter()
-for int_ in arr_:
-    col_[int_] += 1
+col_ = collections.Counter(arr_)
 '''
 snapshot = tracemalloc.take_snapshot()
 top_stats = snapshot.statistics('lineno', True)
