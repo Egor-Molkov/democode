@@ -65,9 +65,10 @@ def detector( left_block_counter, left_block, right_block ):
             
     for index in range( len( right_block )):
         key = right_block[ index ]
+        left_block_counter[key] -= 1
         val = left_block_counter.get( key, 0 )
         # Подозрение на ддос ключ из правого блока + счетчик
-        if val >= k-1:
+        if val > k-1:
             # Посчитаем ключи в срезе
             temp_counter = collections.Counter( left_block[ index: ])
             temp_counter.update( right_block[:index] )
