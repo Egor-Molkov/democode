@@ -70,7 +70,7 @@ def detector( left_block_counter, left_block, right_block ):
         if val >= k-1:
             # Посчитаем ключи в срезе
             temp_counter = collections.Counter( left_block[ index: ])
-            temp_counter.update( [key] )
+            temp_counter.update( right_block[:index] )
             # И правда ддос
             for item, val in temp_counter.items():
                 if val >= k:
