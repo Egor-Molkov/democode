@@ -65,7 +65,8 @@ def detector( left_block_counter, left_block, right_block ):
             
     for index in range( len( right_block )):
         key = right_block[ index ]
-        left_block_counter[key] -= 1
+        keyl = left_block[ index ]
+        left_block_counter[keyl] -= 1
         val = left_block_counter.get( key, 0 )
         # Подозрение на ддос ключ из правого блока + счетчик
         if val > k-1:
