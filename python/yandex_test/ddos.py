@@ -66,13 +66,13 @@ def detector( left_block_counter, left_block, right_block ):
     for index in range( len( right_block )):
         key = right_block[ index ]
         keyl = left_block[ index ]
-        left_block_counter[keyl] -= 1
+        left_block_counter[ keyl ] -= 1
         val = left_block_counter.get( key, 0 )
         # Подозрение на ддос ключ из правого блока + счетчик
-        if val > k-1:
+        if val > k - 1:
             # Посчитаем ключи в срезе
             temp_counter = collections.Counter( left_block[ index: ])
-            temp_counter.update( right_block[:index] )
+            temp_counter.update( right_block[ :index ])
             # И правда ддос
             for item, val in temp_counter.items():
                 if val >= k:
@@ -103,10 +103,10 @@ print(streami.getvalue())
 print( 'Время обработки, сек.', time.time()-point )
 print( 'Детектированны атаки:' )
 for key in ddos:
-    a = int(key/(ip_base**3))
-    b = int((key-a*ip_base**3)/ip_base**2)
-    c = int((key-a*ip_base**3-b*ip_base**2)/ip_base)
+    a = int( key / ( ip_base**3 ))
+    b = int(( key - a * ip_base**3 ) / ip_base**2 )
+    c = int(( key - a * ip_base**3 - b * ip_base**2 ) / ip_base )
     d = key%ip_base
-    print( 'ip: {0}.{1}.{2}.{3}'.format(a,b,c,d), 'попыток:', ddos[key] )
+    print( 'ip: {0}.{1}.{2}.{3}'.format( a, b, c, d ), 'попыток:', ddos[key] )
 
-print( 'Всего зафиксировано:', sum(ddos.values()))
+print( 'Всего зафиксировано:', sum( ddos.values() ))

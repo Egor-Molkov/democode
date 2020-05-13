@@ -23,8 +23,8 @@ z = generate()
 print( 'Время генерации массива, сек.', time.time()-start )
 print( 'Три последних члена:')
 for i in range( 3, 0, -1 ):
-    print( z[ len( z ) - i ])
     print()
+    print( z[ len( z ) - i ])
 
 """
 worki.disable()

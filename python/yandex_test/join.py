@@ -31,9 +31,10 @@ for i in range( 10000 ):
 
 print( 'Время генерации массива, сек.', time.time()-start )
 
-
+point = 0
 
 def Join(t1, t2, metods='INNER'):
+    global point
     point = time.time()
 
     t3 = collections.OrderedDict( t1 )
