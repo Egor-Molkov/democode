@@ -1,0 +1,6 @@
+{
+    "jwt":{
+        "key":"my super secret key11",
+        "access_in_minute":5
+    }
+}

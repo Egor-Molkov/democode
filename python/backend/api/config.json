@@ -1,0 +1,16 @@
+{
+    "server":{
+        "proto_name":"http",
+        "address":"127.0.0.1",
+        "port":5000
+    },
+    "db_":{
+        "host":"127.0.0.1",
+        "db":"sharp_app_test",
+        "user":"egor",
+        "password":"123"
+    },
+    "api":{
+        "prefix":"/api/v1/"
+    }
+}
